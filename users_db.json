@@ -1,0 +1,62 @@
+{
+  "assure1@hestia.fr": {
+    "email": "assure1@hestia.fr",
+    "password_hash": "d33c083793986bc9e8112b7fa0647ceee6a35a5d88d78429c423c11145c63144",
+    "salt": "79e837e83a75910653dff7bfbb0a2dab",
+    "nom": "Dupont",
+    "prenom": "Alexandre",
+    "cin": "11223344",
+    "telephone": "0612345678",
+    "adresse": "42 Avenue des Gobelins, Paris",
+    "role": "Assure",
+    "ontology_id": "Assure1"
+  },
+  "agent1@hestia.fr": {
+    "email": "agent1@hestia.fr",
+    "password_hash": "2a1584943a3c0809ad8a904cb505e8a8499c57a0d187f905adfae324d720e10c",
+    "salt": "49ac4700ee282f62f44599b3dd9492a5",
+    "nom": "Ben Salem",
+    "prenom": "Hiba",
+    "cin": "09887766",
+    "telephone": "0140203040",
+    "adresse": "Si\u00e8ge Hestia Assur, Paris",
+    "role": "Agent",
+    "ontology_id": "Agent1"
+  },
+  "expert1@hestia.fr": {
+    "email": "expert1@hestia.fr",
+    "password_hash": "41d2c49df3e355277b71e4ff2931b700de8b2d49cea2c60ae4a0ed7096c4f360",
+    "salt": "5e07f56ca4b49cb4ac49e7eb41addf93",
+    "nom": "Vernier",
+    "prenom": "Bernard",
+    "cin": "07665544",
+    "telephone": "0699887766",
+    "adresse": "Cabinet Expertises, Bordeaux",
+    "role": "Expert",
+    "ontology_id": "Expert1"
+  },
+  "admin@hestia.fr": {
+    "email": "admin@hestia.fr",
+    "password_hash": "e3fb86c97fb2cef1545ad4b32ebb9adc1a6a345212ced4814e9160d666b4dbb1",
+    "salt": "4fb44e8dd14bb3d0e4f62a7287d2e426",
+    "nom": "Admin",
+    "prenom": "Superviseur",
+    "cin": "00000001",
+    "telephone": "0100000000",
+    "adresse": "Centre Technique Hestia",
+    "role": "Admin",
+    "ontology_id": "Admin1"
+  },
+  "hiba_test@hestia.fr": {
+    "email": "hiba_test@hestia.fr",
+    "password_hash": "00fa8e79a8fd1ea7bfbc8b6c43f9c3a0dab2a5ea57e30090ccf72bd1fb56509e",
+    "salt": "021dfc26e66d044034004599f58070fb",
+    "nom": "Ben Salem",
+    "prenom": "Hiba",
+    "cin": "09887766",
+    "telephone": "21000111",
+    "adresse": "Tunis, Belv\u00e9d\u00e8re",
+    "role": "Agent",
+    "ontology_id": "Agent_7e81b3"
+  }
+}

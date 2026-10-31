@@ -66,126 +66,121 @@ class OntologyService:
             "query": query
         }
 
-    def get_stats(self) -> Dict[str, Any]:
-        classes_q = """
-        SELECT (COUNT(DISTINCT ?c) as ?count) WHERE {
-            ?c a owl:Class .
-            FILTER(!isBlank(?c))
-        }
-        """
-        obj_props_q = """
-        SELECT (COUNT(DISTINCT ?p) as ?count) WHERE {
-            ?p a owl:ObjectProperty .
-        }
-        """
-        data_props_q = """
-        SELECT (COUNT(DISTINCT ?p) as ?count) WHERE {
-            ?p a owl:DatatypeProperty .
-        }
-        """
-        indivs_q = """
-        SELECT (COUNT(DISTINCT ?i) as ?count) WHERE {
-            ?i a ?t .
-            FILTER(?t != owl:Class && ?t != owl:NamedIndividual && ?t != owl:ObjectProperty && ?t != owl:DatatypeProperty && ?t != owl:Ontology && !isBlank(?i))
-        }
-        """
-        classes_res = list(self.graph.query(DEFAULT_PREFIXES + classes_q))
-        obj_res = list(self.graph.query(DEFAULT_PREFIXES + obj_props_q))
-        data_res = list(self.graph.query(DEFAULT_PREFIXES + data_props_q))
-        indivs_res = list(self.graph.query(DEFAULT_PREFIXES + indivs_q))
+    # Module HIBA : PERSONNES (Agent, Assure, Beneficiaire, Expert)
+    def get_personnes(self, role: str | None = None) -> List[Dict[str, Any]]:
+        filter_clause = ""
+        if role:
+            filter_clause = f"FILTER(contains(str(?type), '{role}') || contains(str(?personne), '{role}'))"
 
-        return {
-            "triples_count": len(self.graph),
-            "classes_count": int(classes_res[0][0]) if classes_res else 0,
-            "object_properties_count": int(obj_res[0][0]) if obj_res else 0,
-            "datatype_properties_count": int(data_res[0][0]) if data_res else 0,
-            "individuals_count": int(indivs_res[0][0]) if indivs_res else 0,
-            "ontology_uri": "http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres"
-        }
-
-    def get_sinistres(self) -> List[Dict[str, Any]]:
-        q = """
-        SELECT DISTINCT ?sinistre ?typeSinistre ?date ?lieu ?description ?assure ?expert ?indemnisation ?montantIndemnise WHERE {
-            ?sinistre a ?typeSinistre .
-            FILTER(?typeSinistre != owl:NamedIndividual && 
-                   ?typeSinistre != owl:Class && 
-                   ?typeSinistre != owl:ObjectProperty && 
-                   ?typeSinistre != owl:DatatypeProperty && 
-                   ?typeSinistre != owl:FunctionalProperty && 
-                   ?typeSinistre != owl:Ontology && 
-                   !isBlank(?sinistre) &&
-                   (contains(str(?sinistre), 'Sinistre') || contains(str(?typeSinistre), 'Sinistre')))
-            OPTIONAL { ?sinistre as:dateSinistre ?date }
-            OPTIONAL { ?sinistre as:lieuSinistre ?lieu }
-            OPTIONAL { ?sinistre as:descriptionSinistre ?description }
-            OPTIONAL { ?sinistre as:estDeclarePar ?assure }
-            OPTIONAL { ?sinistre as:expertisePar ?expert }
-            OPTIONAL { ?sinistre as:donneLieuA ?indemnisation .
-                       OPTIONAL { ?indemnisation as:montantIndemnise ?montantIndemnise } }
-        }
-        """
-        res = self.execute_sparql(q)
-        return res["results"]
-
-    def get_assures(self) -> List[Dict[str, Any]]:
-        q = """
-        SELECT DISTINCT ?assure ?nom ?prenom ?cin ?telephone ?adresse WHERE {
-            ?assure a ?type .
-            FILTER(?type != owl:NamedIndividual && ?type != owl:Class && !isBlank(?assure) && (contains(str(?type), 'Assure') || contains(str(?assure), 'Assure')))
-            OPTIONAL { ?assure as:nom ?nom }
-            OPTIONAL { ?assure as:prenom ?prenom }
-            OPTIONAL { ?assure as:cin ?cin }
-            OPTIONAL { ?assure as:telephone ?telephone }
-            OPTIONAL { ?assure as:adresse ?adresse }
-        }
+        q = f"""
+        SELECT DISTINCT ?personne ?type ?nom ?prenom ?cin ?telephone ?adresse WHERE {{
+            ?personne a ?type .
+            FILTER(?type != owl:NamedIndividual && ?type != owl:Class && !isBlank(?personne) &&
+                   (contains(str(?type), 'Personne') || contains(str(?type), 'Assure') || 
+                    contains(str(?type), 'Agent') || contains(str(?type), 'Expert') || 
+                    contains(str(?type), 'Beneficiaire') ||
+                    contains(str(?personne), 'Assure') || contains(str(?personne), 'Agent') ||
+                    contains(str(?personne), 'Expert') || contains(str(?personne), 'Beneficiaire')))
+            {filter_clause}
+            OPTIONAL {{ ?personne as:nom ?nom }}
+            OPTIONAL {{ ?personne as:prenom ?prenom }}
+            OPTIONAL {{ ?personne as:cin ?cin }}
+            OPTIONAL {{ ?personne as:telephone ?telephone }}
+            OPTIONAL {{ ?personne as:adresse ?adresse }}
+        }}
         """
         return self.execute_sparql(q)["results"]
 
-    def get_contrats(self) -> List[Dict[str, Any]]:
-        q = """
-        SELECT DISTINCT ?contrat ?typeContrat ?numero ?dateDebut ?dateFin ?prime ?assure WHERE {
-            ?contrat a ?typeContrat .
-            FILTER(?typeContrat != owl:NamedIndividual && ?typeContrat != owl:Class && !isBlank(?contrat) && (contains(str(?typeContrat), 'Contrat') || contains(str(?contrat), 'Contrat')))
-            OPTIONAL { ?contrat as:numeroContrat ?numero }
-            OPTIONAL { ?contrat as:dateDebut ?dateDebut }
-            OPTIONAL { ?contrat as:dateFin ?dateFin }
-            OPTIONAL { ?contrat as:montantPrime ?prime }
-            OPTIONAL { ?contrat as:aPourAssure ?assure }
-        }
-        """
-        return self.execute_sparql(q)["results"]
+    def add_personne(self, data: Dict[str, Any]) -> str:
+        role = data.get("role", "Assure")
+        p_id = data.get("id") or f"{role}_{len(self.get_personnes()) + 1}"
+        p_uri = AS[p_id]
+        role_uri = UNT[role] if hasattr(UNT, role) else AS[role]
 
-    def get_classes_hierarchy(self) -> List[Dict[str, Any]]:
-        q = """
-        SELECT DISTINCT ?class ?subClass WHERE {
-            ?subClass rdfs:subClassOf ?class .
-            FILTER(!isBlank(?class) && !isBlank(?subClass) && ?class != owl:Thing)
-        }
-        """
-        return self.execute_sparql(q)["results"]
+        self.graph.add((p_uri, RDF.type, OWL.NamedIndividual))
+        self.graph.add((p_uri, RDF.type, role_uri))
 
-    def add_sinistre(self, data: Dict[str, Any]) -> str:
-        sin_id = data.get("id") or f"Sinistre{len(self.get_sinistres()) + 1}"
-        sin_uri = AS[sin_id]
-        sin_type_str = data.get("type", "SinistreDegatDesEaux")
-        
-        sin_type_uri = UNT[sin_type_str] if hasattr(UNT, sin_type_str) else AS[sin_type_str]
-        
-        self.graph.add((sin_uri, RDF.type, OWL.NamedIndividual))
-        self.graph.add((sin_uri, RDF.type, sin_type_uri))
-
-        if "date" in data:
-            self.graph.add((sin_uri, AS.dateSinistre, Literal(data["date"], datatype=XSD.dateTime)))
-        if "description" in data:
-            self.graph.add((sin_uri, AS.descriptionSinistre, Literal(data["description"], datatype=XSD.string)))
-        if "lieu" in data:
-            self.graph.add((sin_uri, AS.lieuSinistre, Literal(data["lieu"], datatype=XSD.string)))
-        if "assure" in data:
-            self.graph.add((sin_uri, AS.estDeclarePar, AS[data["assure"]]))
-        if "expert" in data:
-            self.graph.add((sin_uri, AS.expertisePar, AS[data["expert"]]))
+        if data.get("nom"):
+            self.graph.add((p_uri, AS.nom, Literal(data["nom"], datatype=XSD.string)))
+        if data.get("prenom"):
+            self.graph.add((p_uri, AS.prenom, Literal(data["prenom"], datatype=XSD.string)))
+        if data.get("cin"):
+            self.graph.add((p_uri, AS.cin, Literal(data["cin"], datatype=XSD.string)))
+        if data.get("telephone"):
+            self.graph.add((p_uri, AS.telephone, Literal(data["telephone"], datatype=XSD.string)))
+        if data.get("adresse"):
+            self.graph.add((p_uri, AS.adresse, Literal(data["adresse"], datatype=XSD.string)))
 
         self.save_graph()
-        return sin_id
+        return p_id
+
+    # Module HIBA : CONTRATS (ContratProprietaire, ContratLocataire, ContratCopropriete)
+    def get_contrats(self, type_filter: str | None = None) -> List[Dict[str, Any]]:
+        filter_clause = ""
+        if type_filter:
+            filter_clause = f"FILTER(contains(str(?typeContrat), '{type_filter}'))"
+
+        q = f"""
+        SELECT DISTINCT ?contrat ?typeContrat ?numeroContrat ?dateDebut ?dateFin ?montantPrime ?assure WHERE {{
+            ?contrat a ?typeContrat .
+            FILTER(?typeContrat != owl:NamedIndividual && ?typeContrat != owl:Class && !isBlank(?contrat) &&
+                   (contains(str(?typeContrat), 'Contrat') || contains(str(?contrat), 'Contrat')))
+            {filter_clause}
+            OPTIONAL {{ ?contrat as:numeroContrat ?numeroContrat }}
+            OPTIONAL {{ ?contrat as:dateDebut ?dateDebut }}
+            OPTIONAL {{ ?contrat as:dateFin ?dateFin }}
+            OPTIONAL {{ ?contrat as:montantPrime ?montantPrime }}
+            OPTIONAL {{ ?contrat as:aPourAssure ?assure }}
+        }}
+        """
+        return self.execute_sparql(q)["results"]
+
+    def add_contrat(self, data: Dict[str, Any]) -> str:
+        c_id = data.get("id") or f"Contrat{len(self.get_contrats()) + 1}"
+        c_uri = AS[c_id]
+        c_type = data.get("type", "ContratProprietaire")
+        type_uri = UNT[c_type] if hasattr(UNT, c_type) else AS[c_type]
+
+        self.graph.add((c_uri, RDF.type, OWL.NamedIndividual))
+        self.graph.add((c_uri, RDF.type, type_uri))
+
+        if data.get("numeroContrat"):
+            self.graph.add((c_uri, AS.numeroContrat, Literal(data["numeroContrat"], datatype=XSD.string)))
+        if data.get("dateDebut"):
+            self.graph.add((c_uri, AS.dateDebut, Literal(data["dateDebut"], datatype=XSD.dateTime)))
+        if data.get("dateFin"):
+            self.graph.add((c_uri, AS.dateFin, Literal(data["dateFin"], datatype=XSD.dateTime)))
+        if data.get("montantPrime"):
+            self.graph.add((c_uri, AS.montantPrime, Literal(float(data["montantPrime"]), datatype=XSD.float)))
+        if data.get("assure"):
+            assure_uri = AS[data["assure"]]
+            self.graph.add((c_uri, AS.aPourAssure, assure_uri))
+            # Relation inverse
+            self.graph.add((assure_uri, AS.souscritContrat, c_uri))
+
+        self.save_graph()
+        return c_id
+
+    def delete_contrat(self, contrat_id: str) -> bool:
+        c_uri = AS[contrat_id]
+        triples_to_remove = list(self.graph.triples((c_uri, None, None))) + list(self.graph.triples((None, None, c_uri)))
+        for t in triples_to_remove:
+            self.graph.remove(t)
+        self.save_graph()
+        return len(triples_to_remove) > 0
+
+    def get_stats(self) -> Dict[str, Any]:
+        personnes = self.get_personnes()
+        contrats = self.get_contrats()
+        return {
+            "module": "Système d'Assurance Habitation (Personnes & Contrats)",
+            "personnes_count": len(personnes),
+            "contrats_count": len(contrats),
+            "assures_count": len([p for p in personnes if 'Assure' in (p.get('type') or '') or 'Assure' in (p.get('personne') or '')]),
+            "agents_count": len([p for p in personnes if 'Agent' in (p.get('type') or '') or 'Agent' in (p.get('personne') or '')]),
+            "experts_count": len([p for p in personnes if 'Expert' in (p.get('type') or '') or 'Expert' in (p.get('personne') or '')]),
+            "total_triples": len(self.graph),
+            "ontology_uri": "http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres"
+        }
 
 ontology_service = OntologyService()
