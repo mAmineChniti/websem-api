@@ -6,54 +6,11 @@
    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 >
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#texteClause">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreIncendie">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="Nde1af2e81c374a3a8b71a0b6f9d86bf7"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Neb26a4d043824efaa7312f5aa05823c0">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
-    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieBrisDeGlace"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieCatastropheNaturelle">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieDegatDesEaux"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieResponsabiliteCivile"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#cin">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreDegatDesEaux">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="N1ba32973725a47e6a870bf258d8567c3"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreIncendie"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateUpload">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#aPourAssure">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#souscritContrat"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#tauxIndemnisation">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
@@ -61,162 +18,39 @@
     <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#donneLieuA">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#declareSinistre">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <owl:inverseOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estDeclarePar"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#telephone">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N26e473fd4064421eb357b16112ca4c4f">
-    <rdf:first rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
-    <rdf:rest rdf:nodeID="N9f74f279b5f7498bb6e67b98eaf3fe1e"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#souscritContrat">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Declaration1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationAcceptee"/>
-    <Assuarnce_et_Gestion_des_Sinistres:estJustifiePar rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Document1"/>
-    <Assuarnce_et_Gestion_des_Sinistres:dateDeclaration rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-06-16T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDeclaration>
-    <Assuarnce_et_Gestion_des_Sinistres:statutDeclaration>Acceptée</Assuarnce_et_Gestion_des_Sinistres:statutDeclaration>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
-    <Assuarnce_et_Gestion_des_Sinistres:aPourAssure rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure1"/>
-    <Assuarnce_et_Gestion_des_Sinistres:aPourBien rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Maison1"/>
-    <Assuarnce_et_Gestion_des_Sinistres:couvre rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieIncendie1"/>
-    <Assuarnce_et_Gestion_des_Sinistres:couvre rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieVol1"/>
-    <Assuarnce_et_Gestion_des_Sinistres:dateDebut rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-01-01T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDebut>
-    <Assuarnce_et_Gestion_des_Sinistres:dateFin rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-12-31T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateFin>
-    <Assuarnce_et_Gestion_des_Sinistres:montantPrime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">850.0</Assuarnce_et_Gestion_des_Sinistres:montantPrime>
-    <Assuarnce_et_Gestion_des_Sinistres:numeroContrat>C-2026-001</Assuarnce_et_Gestion_des_Sinistres:numeroContrat>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationAcceptee">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationEnCours"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationRejetee"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nde1af2e81c374a3a8b71a0b6f9d86bf7">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
-    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#valeurBien">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieDegatDesEaux">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieResponsabiliteCivile"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nd01a4bc2026849479d05d51b68dc6153">
-    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
-    <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-    <owl:withRestrictions rdf:nodeID="N9f7d45ed1428476481dc661d1e036a3c"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Indemnisation1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationPartielle"/>
-    <Assuarnce_et_Gestion_des_Sinistres:montantIndemnise rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45000.0</Assuarnce_et_Gestion_des_Sinistres:montantIndemnise>
-    <Assuarnce_et_Gestion_des_Sinistres:tauxIndemnisation rdf:datatype="http://www.w3.org/2001/XMLSchema#float">60.0</Assuarnce_et_Gestion_des_Sinistres:tauxIndemnisation>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Maison">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Studio"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationPartielle">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationRefusee"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationTotale"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N380ffcb03c3e47f6931dea776b3ba592">
-    <rdf:first rdf:nodeID="Na7e10e2e20364e66a5303db8d4a5b779"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Facture">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#PhotoDommage"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#RapportExpertise"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure_TestWorkflow">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateDeclaration">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseExclusion">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseFranchise"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseObligatoire"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageCorporel">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageImmateriel"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratLocataire">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreBrisDeGlace">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="Neb26a4d043824efaa7312f5aa05823c0"/>
+    <owl:equivalentClass rdf:nodeID="Nfbe8481e25c346a0a4662425c5b747ce"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreCatastropheNaturelle"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreDegatDesEaux"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreIncendie"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#descriptionSinistre">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieVol1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
+    <Assuarnce_et_Gestion_des_Sinistres:plafondGarantie rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20000.0</Assuarnce_et_Gestion_des_Sinistres:plafondGarantie>
+    <Assuarnce_et_Gestion_des_Sinistres:tauxFranchise rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</Assuarnce_et_Gestion_des_Sinistres:tauxFranchise>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreCatastropheNaturelle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="N07e42db990144b46ae6df9222f5146fb"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreDegatDesEaux"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreIncendie"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#adresse">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#aPourBien">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#montantIndemnise">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estDeclarePar">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure1">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -227,20 +61,43 @@
     <Assuarnce_et_Gestion_des_Sinistres:prenom>Karim</Assuarnce_et_Gestion_des_Sinistres:prenom>
     <Assuarnce_et_Gestion_des_Sinistres:telephone>20123456</Assuarnce_et_Gestion_des_Sinistres:telephone>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseObligatoire">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estDeclarePar">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#plafondGarantie">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseExclusion">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseFranchise"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseObligatoire"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#numeroContrat">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#telephone">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Clause1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseExclusion"/>
-    <Assuarnce_et_Gestion_des_Sinistres:texteClause>Exclusion en cas de négligence grave du propriétaire</Assuarnce_et_Gestion_des_Sinistres:texteClause>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateUpload">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#prenom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#texteClause">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Agent_7e81b3">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -250,264 +107,6 @@
     <Assuarnce_et_Gestion_des_Sinistres:cin rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09887766</Assuarnce_et_Gestion_des_Sinistres:cin>
     <Assuarnce_et_Gestion_des_Sinistres:telephone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">21000111</Assuarnce_et_Gestion_des_Sinistres:telephone>
     <Assuarnce_et_Gestion_des_Sinistres:adresse rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Tunis, Belvédère</Assuarnce_et_Gestion_des_Sinistres:adresse>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Studio">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#plafondGarantie">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#montantIndemnise">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N1ba32973725a47e6a870bf258d8567c3">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
-    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieDegatDesEaux"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#montantPrime">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#lieuSinistre">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure_3f47f0">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent"/>
-    <Assuarnce_et_Gestion_des_Sinistres:nom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hiba</Assuarnce_et_Gestion_des_Sinistres:nom>
-    <Assuarnce_et_Gestion_des_Sinistres:prenom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Khadhraoui</Assuarnce_et_Gestion_des_Sinistres:prenom>
-    <Assuarnce_et_Gestion_des_Sinistres:cin rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13030185</Assuarnce_et_Gestion_des_Sinistres:cin>
-    <Assuarnce_et_Gestion_des_Sinistres:telephone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95616213</Assuarnce_et_Gestion_des_Sinistres:telephone>
-    <Assuarnce_et_Gestion_des_Sinistres:adresse rdf:datatype="http://www.w3.org/2001/XMLSchema#string">W 13th St</Assuarnce_et_Gestion_des_Sinistres:adresse>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Assure"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N9f74f279b5f7498bb6e67b98eaf3fe1e">
-    <rdf:first rdf:nodeID="Nf1224a493a45419a82101ea2d81f4ac4"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#nomFichier">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Appartement">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Maison"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Studio"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estJustifiePar">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N1ac945872dcf48a79bc35e0ea075930a">
-    <rdf:first rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
-    <rdf:rest rdf:nodeID="N380ffcb03c3e47f6931dea776b3ba592"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N3c6c14f8f7db4a5a9f78cb54b47c0b90">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:intersectionOf rdf:nodeID="N26e473fd4064421eb357b16112ca4c4f"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="N9f7d45ed1428476481dc661d1e036a3c">
-    <rdf:first rdf:nodeID="Ne884b1586c48443b8ab9191e570fbdc7"/>
-    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#nom">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="N8551dd9493c5450ab2a144c1dca99c4f"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratCopropriete">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratLocataire"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseFranchise">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseObligatoire"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Maison1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Maison"/>
-    <Assuarnce_et_Gestion_des_Sinistres:adresseBien>12 rue des Oliviers, Tunis</Assuarnce_et_Gestion_des_Sinistres:adresseBien>
-    <Assuarnce_et_Gestion_des_Sinistres:superficie rdf:datatype="http://www.w3.org/2001/XMLSchema#float">150.0</Assuarnce_et_Gestion_des_Sinistres:superficie>
-    <Assuarnce_et_Gestion_des_Sinistres:valeurBien rdf:datatype="http://www.w3.org/2001/XMLSchema#float">300000.0</Assuarnce_et_Gestion_des_Sinistres:valeurBien>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#adresse">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreCatastropheNaturelle">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="Nde5ed20ddff14759b22ee7ce0ec38c14"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreDegatDesEaux"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreIncendie"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#provoqueDommage">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Agent1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent"/>
-    <Assuarnce_et_Gestion_des_Sinistres:nom>Trabelsi</Assuarnce_et_Gestion_des_Sinistres:nom>
-    <Assuarnce_et_Gestion_des_Sinistres:prenom>Sami</Assuarnce_et_Gestion_des_Sinistres:prenom>
-    <Assuarnce_et_Gestion_des_Sinistres:telephone>71234567</Assuarnce_et_Gestion_des_Sinistres:telephone>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateDebut">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Nf1224a493a45419a82101ea2d81f4ac4">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#tauxIndemnisation"/>
-    <owl:someValuesFrom rdf:nodeID="Nd01a4bc2026849479d05d51b68dc6153"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Dommage1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel"/>
-    <Assuarnce_et_Gestion_des_Sinistres:niveauGravite>Grave</Assuarnce_et_Gestion_des_Sinistres:niveauGravite>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:nodeID="Na7e10e2e20364e66a5303db8d4a5b779">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#tauxIndemnisation"/>
-    <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</owl:hasValue>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Expert1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
-    <Assuarnce_et_Gestion_des_Sinistres:nom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gharbi</Assuarnce_et_Gestion_des_Sinistres:nom>
-    <Assuarnce_et_Gestion_des_Sinistres:prenom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nadia</Assuarnce_et_Gestion_des_Sinistres:prenom>
-    <Assuarnce_et_Gestion_des_Sinistres:telephone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98765432</Assuarnce_et_Gestion_des_Sinistres:telephone>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#statutDeclaration">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Assure">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationRejetee">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieVol1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
-    <Assuarnce_et_Gestion_des_Sinistres:plafondGarantie rdf:datatype="http://www.w3.org/2001/XMLSchema#float">20000.0</Assuarnce_et_Gestion_des_Sinistres:plafondGarantie>
-    <Assuarnce_et_Gestion_des_Sinistres:tauxFranchise rdf:datatype="http://www.w3.org/2001/XMLSchema#float">10.0</Assuarnce_et_Gestion_des_Sinistres:tauxFranchise>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#prenom">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieIncendie1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
-    <Assuarnce_et_Gestion_des_Sinistres:aPourClause rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Clause1"/>
-    <Assuarnce_et_Gestion_des_Sinistres:plafondGarantie rdf:datatype="http://www.w3.org/2001/XMLSchema#float">100000.0</Assuarnce_et_Gestion_des_Sinistres:plafondGarantie>
-    <Assuarnce_et_Gestion_des_Sinistres:tauxFranchise rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5.0</Assuarnce_et_Gestion_des_Sinistres:tauxFranchise>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#aPourAssure">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <owl:inverseOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#souscritContrat"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Beneficiaire1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire"/>
-    <Assuarnce_et_Gestion_des_Sinistres:nom>BenAli</Assuarnce_et_Gestion_des_Sinistres:nom>
-    <Assuarnce_et_Gestion_des_Sinistres:prenom>Karim</Assuarnce_et_Gestion_des_Sinistres:prenom>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationTotale">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="N3c6c14f8f7db4a5a9f78cb54b47c0b90"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Document1">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#RapportExpertise"/>
-    <Assuarnce_et_Gestion_des_Sinistres:dateUpload rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-06-20T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateUpload>
-    <Assuarnce_et_Gestion_des_Sinistres:nomFichier>rapport_expertise_2026001.pdf</Assuarnce_et_Gestion_des_Sinistres:nomFichier>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#expertisePar">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateFin">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#faitObjetDe">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Sinistre1">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
@@ -522,76 +121,324 @@
     <Assuarnce_et_Gestion_des_Sinistres:descriptionSinistre>Incendie dans la cuisine suite à un court-circuit</Assuarnce_et_Gestion_des_Sinistres:descriptionSinistre>
     <Assuarnce_et_Gestion_des_Sinistres:lieuSinistre>12 rue des Oliviers, Tunis</Assuarnce_et_Gestion_des_Sinistres:lieuSinistre>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateSinistre">
+  <rdf:Description rdf:nodeID="N949ab316f2f24250800b24f7a22ac5fe">
+    <rdf:first rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
+    <rdf:rest rdf:nodeID="Nc932a637bdcf42f286ff934d3da6adaa"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Document1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#RapportExpertise"/>
+    <Assuarnce_et_Gestion_des_Sinistres:dateUpload rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-06-20T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateUpload>
+    <Assuarnce_et_Gestion_des_Sinistres:nomFichier>rapport_expertise_2026001.pdf</Assuarnce_et_Gestion_des_Sinistres:nomFichier>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#statutDeclaration">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationRefusee">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:equivalentClass rdf:nodeID="Ne48df5e630ee40df8cbdc3f7aceb195f"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationTotale"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageImmateriel">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationEnCours">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationRejetee">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationRejetee"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#couvre">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieResponsabiliteCivile">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#aPourClause">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
-    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure_TestWorkflow">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent"/>
+    <Assuarnce_et_Gestion_des_Sinistres:souscritContrat rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat4"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieCatastropheNaturelle">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieDegatDesEaux"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieResponsabiliteCivile"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Facture">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#PhotoDommage"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#RapportExpertise"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Maison1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Maison"/>
+    <Assuarnce_et_Gestion_des_Sinistres:adresseBien>12 rue des Oliviers, Tunis</Assuarnce_et_Gestion_des_Sinistres:adresseBien>
+    <Assuarnce_et_Gestion_des_Sinistres:superficie rdf:datatype="http://www.w3.org/2001/XMLSchema#float">150.0</Assuarnce_et_Gestion_des_Sinistres:superficie>
+    <Assuarnce_et_Gestion_des_Sinistres:valeurBien rdf:datatype="http://www.w3.org/2001/XMLSchema#float">300000.0</Assuarnce_et_Gestion_des_Sinistres:valeurBien>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Agent1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent"/>
+    <Assuarnce_et_Gestion_des_Sinistres:nom>Trabelsi</Assuarnce_et_Gestion_des_Sinistres:nom>
+    <Assuarnce_et_Gestion_des_Sinistres:prenom>Sami</Assuarnce_et_Gestion_des_Sinistres:prenom>
+    <Assuarnce_et_Gestion_des_Sinistres:telephone>71234567</Assuarnce_et_Gestion_des_Sinistres:telephone>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#souscritContrat">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreIncendie">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="N1f1545f0d6464a91babce2f7897db4ac"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#niveauGravite">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#PhotoDommage">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#declareSinistre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <owl:inverseOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estDeclarePar"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#nom">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#RapportExpertise"/>
+    <owl:equivalentClass rdf:nodeID="Nb6564546777d42fba504c2dc55a2a64d"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Expert1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
+    <Assuarnce_et_Gestion_des_Sinistres:nom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gharbi</Assuarnce_et_Gestion_des_Sinistres:nom>
+    <Assuarnce_et_Gestion_des_Sinistres:prenom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Nadia</Assuarnce_et_Gestion_des_Sinistres:prenom>
+    <Assuarnce_et_Gestion_des_Sinistres:telephone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">98765432</Assuarnce_et_Gestion_des_Sinistres:telephone>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N90266dc7bcc94622803745c85ef3a2bb">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#tauxIndemnisation"/>
+    <owl:someValuesFrom rdf:nodeID="N05bb97e8a74d49c1a90039d356f6dc10"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1410630c61a34be49f206e7cc11eb8a8">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#tauxIndemnisation"/>
+    <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</owl:hasValue>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#provoqueDommage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb6564546777d42fba504c2dc55a2a64d">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Appartement">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Maison"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Studio"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure_3f47f0">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent"/>
+    <Assuarnce_et_Gestion_des_Sinistres:nom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hiba</Assuarnce_et_Gestion_des_Sinistres:nom>
+    <Assuarnce_et_Gestion_des_Sinistres:prenom rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Khadhraoui</Assuarnce_et_Gestion_des_Sinistres:prenom>
+    <Assuarnce_et_Gestion_des_Sinistres:cin rdf:datatype="http://www.w3.org/2001/XMLSchema#string">13030185</Assuarnce_et_Gestion_des_Sinistres:cin>
+    <Assuarnce_et_Gestion_des_Sinistres:telephone rdf:datatype="http://www.w3.org/2001/XMLSchema#string">95616213</Assuarnce_et_Gestion_des_Sinistres:telephone>
+    <Assuarnce_et_Gestion_des_Sinistres:adresse rdf:datatype="http://www.w3.org/2001/XMLSchema#string">W 13th St</Assuarnce_et_Gestion_des_Sinistres:adresse>
+    <Assuarnce_et_Gestion_des_Sinistres:souscritContrat rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat6"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Declaration1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationAcceptee"/>
+    <Assuarnce_et_Gestion_des_Sinistres:estJustifiePar rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Document1"/>
+    <Assuarnce_et_Gestion_des_Sinistres:dateDeclaration rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-06-16T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDeclaration>
+    <Assuarnce_et_Gestion_des_Sinistres:statutDeclaration>Acceptée</Assuarnce_et_Gestion_des_Sinistres:statutDeclaration>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat6">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
+    <Assuarnce_et_Gestion_des_Sinistres:numeroContrat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C-2026-009</Assuarnce_et_Gestion_des_Sinistres:numeroContrat>
+    <Assuarnce_et_Gestion_des_Sinistres:dateDebut rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-01-01T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDebut>
+    <Assuarnce_et_Gestion_des_Sinistres:dateFin rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-12-31T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateFin>
+    <Assuarnce_et_Gestion_des_Sinistres:montantPrime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">650.0</Assuarnce_et_Gestion_des_Sinistres:montantPrime>
+    <Assuarnce_et_Gestion_des_Sinistres:aPourAssure rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure_3f47f0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Studio">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd3b74152c2a9458197f957f832ae8f4a">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieDegatDesEaux"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nc932a637bdcf42f286ff934d3da6adaa">
+    <rdf:first rdf:nodeID="N1410630c61a34be49f206e7cc11eb8a8"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N6e6f69338e644e19bbe952d5f9c690c4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="N02c04e7cebea4cd4b6f67559c8b8931d"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N1f1545f0d6464a91babce2f7897db4ac">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationEnCours">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationRejetee"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Dommage1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel"/>
+    <Assuarnce_et_Gestion_des_Sinistres:niveauGravite>Grave</Assuarnce_et_Gestion_des_Sinistres:niveauGravite>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
+    <Assuarnce_et_Gestion_des_Sinistres:numeroContrat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C-2026-004</Assuarnce_et_Gestion_des_Sinistres:numeroContrat>
+    <Assuarnce_et_Gestion_des_Sinistres:dateDebut rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-01-01T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDebut>
+    <Assuarnce_et_Gestion_des_Sinistres:dateFin rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-12-31T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateFin>
+    <Assuarnce_et_Gestion_des_Sinistres:montantPrime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">650.0</Assuarnce_et_Gestion_des_Sinistres:montantPrime>
+    <Assuarnce_et_Gestion_des_Sinistres:aPourAssure rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure_TestWorkflow"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estJustifiePar">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat5">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratLocataire"/>
+    <Assuarnce_et_Gestion_des_Sinistres:numeroContrat rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C-2026-009</Assuarnce_et_Gestion_des_Sinistres:numeroContrat>
+    <Assuarnce_et_Gestion_des_Sinistres:dateDebut rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-01-01T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDebut>
+    <Assuarnce_et_Gestion_des_Sinistres:dateFin rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-12-31T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateFin>
+    <Assuarnce_et_Gestion_des_Sinistres:montantPrime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">650.0</Assuarnce_et_Gestion_des_Sinistres:montantPrime>
+    <Assuarnce_et_Gestion_des_Sinistres:aPourAssure rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#hiba khadraoui"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Clause1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseExclusion"/>
+    <Assuarnce_et_Gestion_des_Sinistres:texteClause>Exclusion en cas de négligence grave du propriétaire</Assuarnce_et_Gestion_des_Sinistres:texteClause>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#montantPrime">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#donneLieuA">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#aPourClause">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#tauxFranchise">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
     <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Ne48df5e630ee40df8cbdc3f7aceb195f">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <owl:intersectionOf rdf:nodeID="N1ac945872dcf48a79bc35e0ea075930a"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Indemnisation1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationPartielle"/>
+    <Assuarnce_et_Gestion_des_Sinistres:montantIndemnise rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45000.0</Assuarnce_et_Gestion_des_Sinistres:montantIndemnise>
+    <Assuarnce_et_Gestion_des_Sinistres:tauxIndemnisation rdf:datatype="http://www.w3.org/2001/XMLSchema#float">60.0</Assuarnce_et_Gestion_des_Sinistres:tauxIndemnisation>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#cin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="N8551dd9493c5450ab2a144c1dca99c4f">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
-    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
-    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Maison">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Studio"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#nomFichier">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Beneficiaire1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire"/>
+    <Assuarnce_et_Gestion_des_Sinistres:nom>BenAli</Assuarnce_et_Gestion_des_Sinistres:nom>
+    <Assuarnce_et_Gestion_des_Sinistres:prenom>Karim</Assuarnce_et_Gestion_des_Sinistres:prenom>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Agent">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Assure"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N36e4e4c6637d42eb81ca52ad3c31d4a8">
+    <rdf:first rdf:nodeID="N90266dc7bcc94622803745c85ef3a2bb"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieIncendie1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
+    <Assuarnce_et_Gestion_des_Sinistres:aPourClause rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Clause1"/>
+    <Assuarnce_et_Gestion_des_Sinistres:plafondGarantie rdf:datatype="http://www.w3.org/2001/XMLSchema#float">100000.0</Assuarnce_et_Gestion_des_Sinistres:plafondGarantie>
+    <Assuarnce_et_Gestion_des_Sinistres:tauxFranchise rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5.0</Assuarnce_et_Gestion_des_Sinistres:tauxFranchise>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratCopropriete">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratLocataire"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
+    <Assuarnce_et_Gestion_des_Sinistres:aPourAssure rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Assure1"/>
+    <Assuarnce_et_Gestion_des_Sinistres:aPourBien rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Maison1"/>
+    <Assuarnce_et_Gestion_des_Sinistres:couvre rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieIncendie1"/>
+    <Assuarnce_et_Gestion_des_Sinistres:couvre rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#GarantieVol1"/>
+    <Assuarnce_et_Gestion_des_Sinistres:dateDebut rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-01-01T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDebut>
+    <Assuarnce_et_Gestion_des_Sinistres:dateFin rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-12-31T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateFin>
+    <Assuarnce_et_Gestion_des_Sinistres:montantPrime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">850.0</Assuarnce_et_Gestion_des_Sinistres:montantPrime>
+    <Assuarnce_et_Gestion_des_Sinistres:numeroContrat>C-2026-001</Assuarnce_et_Gestion_des_Sinistres:numeroContrat>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#superficie">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
@@ -599,10 +446,47 @@
     <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
-    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#valeurBien">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N07e42db990144b46ae6df9222f5146fb">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieCatastropheNaturelle"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#expertisePar">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateFin">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateDeclaration">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreDegatDesEaux">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="Nd3b74152c2a9458197f957f832ae8f4a"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreIncendie"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#SinistreVol"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieBrisDeGlace">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
@@ -613,23 +497,73 @@
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieResponsabiliteCivile"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
   </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationRefusee">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="N78e5158226e04eea885cbbdb87e888b3"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationTotale"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageImmateriel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateDebut">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieDegatDesEaux">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieResponsabiliteCivile"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
+  </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieIncendie">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieResponsabiliteCivile"/>
     <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieVol"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratLocataire">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Assure">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#RapportExpertise">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
     <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#aPourBien">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationTotale">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="N6e6f69338e644e19bbe952d5f9c690c4"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#descriptionSinistre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#adresseBien">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
@@ -637,25 +571,123 @@
     <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  <rdf:Description rdf:nodeID="N6cfecbc6d1f44444b80c7f67beb19c12">
+    <rdf:first rdf:nodeID="Nc099610334f847bf876765ff7d3e28e2"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#dateSinistre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Beneficiaire">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Nde5ed20ddff14759b22ee7ce0ec38c14">
+  <rdf:Description rdf:nodeID="Nfbe8481e25c346a0a4662425c5b747ce">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
     <owl:onProperty rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#estCouvertPar"/>
-    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieCatastropheNaturelle"/>
+    <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#GarantieBrisDeGlace"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageCorporel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageImmateriel"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DommageMateriel"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#couvre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#numeroContrat">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationAcceptee">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationEnCours"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#DeclarationRejetee"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseObligatoire">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#faitObjetDe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Villa">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#habitation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N78e5158226e04eea885cbbdb87e888b3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="N949ab316f2f24250800b24f7a22ac5fe"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N05bb97e8a74d49c1a90039d356f6dc10">
+    <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Datatype"/>
+    <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    <owl:withRestrictions rdf:nodeID="N6cfecbc6d1f44444b80c7f67beb19c12"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Declaration">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ContratProprietaire">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
-    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat"/>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
   </rdf:Description>
-  <rdf:Description rdf:nodeID="Ne884b1586c48443b8ab9191e570fbdc7">
+  <rdf:Description rdf:nodeID="Nc099610334f847bf876765ff7d3e28e2">
     <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#float">100.0</xsd:minInclusive>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#lieuSinistre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Sinistre"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Dommage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseFranchise">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Clause"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#ClauseObligatoire"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N02c04e7cebea4cd4b6f67559c8b8931d">
+    <rdf:first rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
+    <rdf:rest rdf:nodeID="N36e4e4c6637d42eb81ca52ad3c31d4a8"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#hiba khadraoui">
+    <Assuarnce_et_Gestion_des_Sinistres:souscritContrat rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#PhotoDommage">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Document"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#RapportExpertise"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Contrat">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationPartielle">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationRefusee"/>
+    <owl:disjointWith rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#IndemnisationTotale"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Indemnisation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Garantie">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
 </rdf:RDF>
