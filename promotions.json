@@ -1,0 +1,20 @@
+[
+  {
+    "id": "promo_1793414640",
+    "ontology_id": "Assure_3f47f0",
+    "current_name": "Khadhraoui Hiba",
+    "requested_role": "Agent",
+    "message": "test",
+    "status": "rejected",
+    "created_at": "2026-10-31T02:44:00Z"
+  },
+  {
+    "id": "promo_1793414708",
+    "ontology_id": "Assure_3f47f0",
+    "current_name": "Khadhraoui Hiba",
+    "requested_role": "Agent",
+    "message": "testt",
+    "status": "approved",
+    "created_at": "2026-10-31T02:45:08Z"
+  }
+]
