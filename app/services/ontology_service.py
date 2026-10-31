@@ -114,6 +114,66 @@ class OntologyService:
         self.save_graph()
         return p_id
 
+
+    def update_personne(self, personne_id: str, data: Dict[str, Any]) -> bool:
+        """Update properties of an existing person in the RDF graph."""
+        p_uri = AS[personne_id]
+        # Check the individual exists
+        exists = (p_uri, RDF.type, OWL.NamedIndividual) in self.graph
+        if not exists:
+            # Try to find by any type triple
+            found = any(True for _ in self.graph.triples((p_uri, RDF.type, None)))
+            if not found:
+                return False
+
+        # Remove old literal properties then re-add
+        for prop, key in [
+            (AS.nom,       'nom'),
+            (AS.prenom,    'prenom'),
+            (AS.cin,       'cin'),
+            (AS.telephone, 'telephone'),
+            (AS.adresse,   'adresse'),
+        ]:
+            self.graph.remove((p_uri, prop, None))
+            if data.get(key):
+                self.graph.add((p_uri, prop, Literal(data[key], datatype=XSD.string)))
+
+        self.save_graph()
+        return True
+
+
+    def delete_personne(self, personne_id: str) -> bool:
+        """Remove all triples for a given person from the RDF graph."""
+        p_uri = AS[personne_id]
+        triples = list(self.graph.triples((p_uri, None, None)))
+        if not triples:
+            return False
+        for t in triples:
+            self.graph.remove(t)
+        # Also remove triples where this person is the object
+        for t in list(self.graph.triples((None, None, p_uri))):
+            self.graph.remove(t)
+        self.save_graph()
+        return True
+
+    def change_role_personne(self, personne_id: str, new_role: str) -> bool:
+        """Change the OWL type of a person to a new role."""
+        p_uri = AS[personne_id]
+        # Remove old role type triples (keep NamedIndividual)
+        for role_name in ['Assure', 'Agent', 'Expert', 'Beneficiaire', 'Admin']:
+            for ns in [AS, UNT]:
+                try:
+                    old_uri = ns[role_name]
+                    self.graph.remove((p_uri, RDF.type, old_uri))
+                except Exception:
+                    pass
+        # Add new role type
+        new_role_uri = UNT[new_role]
+        self.graph.add((p_uri, RDF.type, OWL.NamedIndividual))
+        self.graph.add((p_uri, RDF.type, new_role_uri))
+        self.save_graph()
+        return True
+
     # Module HIBA : CONTRATS (ContratProprietaire, ContratLocataire, ContratCopropriete)
     def get_contrats(self, type_filter: str | None = None) -> List[Dict[str, Any]]:
         filter_clause = ""

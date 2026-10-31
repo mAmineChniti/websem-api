@@ -191,4 +191,36 @@ class AuthService:
             "ontology_id": u["ontology_id"]
         }
 
+
+    def update_user_role(self, ontology_id: str, new_role: str) -> bool:
+        """Update role in the auth user store."""
+        try:
+            self.load_users()
+            changed = False
+            for email, u in self.users.items():
+                if u.get("ontology_id") == ontology_id:
+                    u["role"] = new_role
+                    changed = True
+            if changed:
+                self.save_users()
+            return changed
+        except Exception as e:
+            print("update_user_role error:", e)
+            return False
+
+    def delete_user_by_ontology_id(self, ontology_id: str) -> bool:
+        """Delete user from auth store by ontology_id."""
+        try:
+            self.load_users()
+            to_del = [email for email, u in self.users.items() if u.get("ontology_id") == ontology_id]
+            for email in to_del:
+                del self.users[email]
+            if to_del:
+                self.save_users()
+                return True
+            return False
+        except Exception as e:
+            print("delete_user error:", e)
+            return False
+
 auth_service = AuthService()

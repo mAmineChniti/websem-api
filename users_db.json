@@ -58,5 +58,29 @@
     "adresse": "Tunis, Belv\u00e9d\u00e8re",
     "role": "Agent",
     "ontology_id": "Agent_7e81b3"
+  },
+  "hibakhadraoui314@gmail.com": {
+    "email": "hibakhadraoui314@gmail.com",
+    "password_hash": "07d64a24b3ec5c52b9a7ee2082794fa8c069f880aeb01aaa49c33b3a58704b5e",
+    "salt": "47b3959694377e72413f748709671480",
+    "nom": "Hiba",
+    "prenom": "Khadhraoui",
+    "cin": "13030185",
+    "telephone": "95616213",
+    "adresse": "W 13th St",
+    "role": "Agent",
+    "ontology_id": "Assure_3f47f0"
+  },
+  "beneficiaire1@hestia.fr": {
+    "email": "beneficiaire1@hestia.fr",
+    "password_hash": "33009c6c7f06c33e0c8b7d9811e4cfb7aab568663c298cea168579ea1bc186a6",
+    "salt": "ebd492128b5f94cdea5a2a969a2a59cd",
+    "nom": "BenAli",
+    "prenom": "Sarra",
+    "cin": "14253647",
+    "telephone": "22998877",
+    "adresse": "Tunis, Ariana",
+    "role": "Beneficiaire",
+    "ontology_id": "Beneficiaire1"
   }
 }
