@@ -13,7 +13,12 @@ class Settings(BaseSettings):
     app_version: str = "0.1.0"
     debug: bool = False
     api_prefix: str = "/api"
-    cors_origins: list[str] | str = ["http://localhost:3000"] 
+    cors_origins: list[str] | str = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
+    ] 
 
     @field_validator("cors_origins", mode="before")
     @classmethod

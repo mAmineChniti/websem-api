@@ -184,6 +184,18 @@ def create_contrat(req: ContratCreateRequest):
     c_id = ontology_service.add_contrat(req.model_dump())
     return {"status": "success", "message": f"Contrat {c_id} créé dans l'ontologie", "id": c_id}
 
+@router.put("/contrats/{contrat_id}")
+def update_contrat(contrat_id: str, req: ContratUpdateRequest):
+    try:
+        success = ontology_service.update_contrat(contrat_id, req.model_dump(exclude_unset=True))
+        if not success:
+            raise HTTPException(status_code=404, detail=f"Contrat {contrat_id} non trouvé dans l'ontologie")
+        return {"status": "success", "message": f"Contrat {contrat_id} mis à jour avec succès"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
 @router.delete("/contrats/{contrat_id}")
 def delete_contrat(contrat_id: str):
     success = ontology_service.delete_contrat(contrat_id)

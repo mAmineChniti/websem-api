@@ -1,8 +1,12 @@
 import os
+import threading
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 import rdflib
 from rdflib import Graph, Literal, Namespace, RDF, RDFS, OWL, XSD, URIRef
+
+# Lock global pour sérialiser l'analyse des requêtes SPARQL (pyparsing n'étant pas thread-safe dans rdflib)
+_sparql_lock = threading.Lock()
 
 AS = Namespace("http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#")
 UNT = Namespace("http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#")
@@ -226,43 +230,46 @@ class OntologyService:
 
     def reload_graph(self):
         """Recharge l'ontologie depuis le fichier RDF (après modification dans Protégé)."""
-        self.graph = Graph()
-        self.load_graph()
-        return {"status": "ok", "triples": len(self.graph), "path": self.rdf_path}
+        with _sparql_lock:
+            self.graph = Graph()
+            self.load_graph()
+            return {"status": "ok", "triples": len(self.graph), "path": self.rdf_path}
 
     def save_graph(self):
-        self.graph.serialize(destination=self.rdf_path, format="xml")
+        with _sparql_lock:
+            self.graph.serialize(destination=self.rdf_path, format="xml")
 
     def execute_sparql(self, query: str) -> Dict[str, Any]:
-        full_query = query
-        if "PREFIX" not in query.upper():
-            full_query = DEFAULT_PREFIXES + "\n" + query
+        with _sparql_lock:
+            full_query = query
+            if "PREFIX" not in query.upper():
+                full_query = DEFAULT_PREFIXES + "\n" + query
 
-        qres = self.graph.query(full_query)
+            qres = self.graph.query(full_query)
 
-        if hasattr(qres, 'type') and qres.type == 'ASK':
-            return {"type": "ASK", "boolean": bool(qres)}
+            if hasattr(qres, 'type') and qres.type == 'ASK':
+                return {"type": "ASK", "boolean": bool(qres)}
 
-        vars_list = [str(v) for v in qres.vars] if hasattr(qres, 'vars') and qres.vars else []
-        rows = []
-        for row in qres:
-            row_dict = {}
-            for v in vars_list:
-                val = row[rdflib.Variable(v)]
-                if val is not None:
-                    val_str = str(val)
-                    clean_str = val_str.split('#')[-1] if '#' in val_str else val_str
-                    row_dict[v] = clean_str
-                else:
-                    row_dict[v] = None
-            rows.append(row_dict)
+            vars_list = [str(v) for v in qres.vars] if hasattr(qres, 'vars') and qres.vars else []
+            rows = []
+            for row in qres:
+                row_dict = {}
+                for v in vars_list:
+                    val = row[rdflib.Variable(v)]
+                    if val is not None:
+                        val_str = str(val)
+                        clean_str = val_str.split('#')[-1] if '#' in val_str else val_str
+                        row_dict[v] = clean_str
+                    else:
+                        row_dict[v] = None
+                rows.append(row_dict)
 
-        return {
-            "vars": vars_list,
-            "count": len(rows),
-            "results": rows,
-            "query": query
-        }
+            return {
+                "vars": vars_list,
+                "count": len(rows),
+                "results": rows,
+                "query": query
+            }
 
     # ── Module HIBA : PERSONNES (Agent, Assure, Beneficiaire, Expert) ─────────
     def get_personnes(self, role: str | None = None) -> List[Dict[str, Any]]:
