@@ -6,7 +6,11 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi[standard]>=0.115.0",
+    "fr-core-news-sm",
+    "nltk>=3.8",
     "pydantic-settings>=2.6.0",
+    "rdflib>=7.0.0",
+    "spacy>=3.7.0",
 ]
 
 [dependency-groups]
@@ -26,3 +30,6 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+
+[tool.uv.sources]
+fr-core-news-sm = { url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.8.0/fr_core_news_sm-3.8.0-py3-none-any.whl" }
