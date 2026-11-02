@@ -18,7 +18,7 @@ class Settings(BaseSettings):
         "http://127.0.0.1:3000",
         "http://localhost:3001",
         "http://127.0.0.1:3001",
-    ] 
+    ]
 
     @field_validator("cors_origins", mode="before")
     @classmethod
@@ -27,6 +27,7 @@ class Settings(BaseSettings):
             value = value.strip()
             if value.startswith("[") and value.endswith("]"):
                 import json
+
                 try:
                     return json.loads(value)
                 except Exception:

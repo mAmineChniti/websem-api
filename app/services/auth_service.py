@@ -1,24 +1,25 @@
 import hashlib
-import secrets
 import json
 import os
+import secrets
 from pathlib import Path
-from typing import Dict, Any, Optional, List
+from typing import Any
+
 
 class AuthService:
-    def __init__(self, db_path: Optional[str] = None):
+    def __init__(self, db_path: str | None = None):
         if not db_path:
             base_dir = Path(__file__).resolve().parent.parent.parent
             db_path = str(base_dir / "users_db.json")
         self.db_path = db_path
-        self.users: Dict[str, Dict[str, Any]] = {}
-        self.sessions: Dict[str, str] = {} # token -> email
+        self.users: dict[str, dict[str, Any]] = {}
+        self.sessions: dict[str, str] = {}  # token -> email
         self.load_users()
 
-    def hash_password(self, password: str, salt: Optional[str] = None) -> tuple[str, str]:
+    def hash_password(self, password: str, salt: str | None = None) -> tuple[str, str]:
         if not salt:
             salt = secrets.token_hex(16)
-        salted = (salt + password).encode('utf-8')
+        salted = (salt + password).encode("utf-8")
         pwd_hash = hashlib.sha256(salted).hexdigest()
         return pwd_hash, salt
 
@@ -29,11 +30,11 @@ class AuthService:
     def load_users(self):
         if os.path.exists(self.db_path):
             try:
-                with open(self.db_path, 'r', encoding='utf-8') as f:
+                with open(self.db_path, encoding="utf-8") as f:
                     self.users = json.load(f)
             except Exception:
                 self.users = {}
-        
+
         # Initial default users matching Protégé individuals if empty
         if not self.users:
             self.create_default_users()
@@ -49,7 +50,7 @@ class AuthService:
                 "telephone": "0612345678",
                 "adresse": "42 Avenue des Gobelins, Paris",
                 "role": "Assure",
-                "ontology_id": "Assure1"
+                "ontology_id": "Assure1",
             },
             {
                 "email": "agent1@hestia.fr",
@@ -60,7 +61,7 @@ class AuthService:
                 "telephone": "0140203040",
                 "adresse": "Siège Hestia Assur, Paris",
                 "role": "Agent",
-                "ontology_id": "Agent1"
+                "ontology_id": "Agent1",
             },
             {
                 "email": "expert1@hestia.fr",
@@ -71,7 +72,7 @@ class AuthService:
                 "telephone": "0699887766",
                 "adresse": "Cabinet Expertises, Bordeaux",
                 "role": "Expert",
-                "ontology_id": "Expert1"
+                "ontology_id": "Expert1",
             },
             {
                 "email": "admin@hestia.fr",
@@ -82,8 +83,8 @@ class AuthService:
                 "telephone": "0100000000",
                 "adresse": "Centre Technique Hestia",
                 "role": "Admin",
-                "ontology_id": "Admin1"
-            }
+                "ontology_id": "Admin1",
+            },
         ]
         for u in defaults:
             pwd_hash, salt = self.hash_password(u["password"])
@@ -97,15 +98,15 @@ class AuthService:
                 "telephone": u["telephone"],
                 "adresse": u["adresse"],
                 "role": u["role"],
-                "ontology_id": u["ontology_id"]
+                "ontology_id": u["ontology_id"],
             }
         self.save_users()
 
     def save_users(self):
-        with open(self.db_path, 'w', encoding='utf-8') as f:
+        with open(self.db_path, "w", encoding="utf-8") as f:
             json.dump(self.users, f, indent=2)
 
-    def register(self, data: Dict[str, Any]) -> Dict[str, Any]:
+    def register(self, data: dict[str, Any]) -> dict[str, Any]:
         email = data["email"].strip().lower()
         if email in self.users:
             raise ValueError("Un utilisateur avec cette adresse e-mail existe déjà.")
@@ -127,7 +128,7 @@ class AuthService:
             "telephone": data.get("telephone", "").strip(),
             "adresse": data.get("adresse", "").strip(),
             "role": role,
-            "ontology_id": ont_id
+            "ontology_id": ont_id,
         }
         self.users[email] = user_obj
         self.save_users()
@@ -145,11 +146,11 @@ class AuthService:
                 "cin": user_obj["cin"],
                 "telephone": user_obj["telephone"],
                 "adresse": user_obj["adresse"],
-                "ontology_id": ont_id
-            }
+                "ontology_id": ont_id,
+            },
         }
 
-    def login(self, email: str, password: str) -> Dict[str, Any]:
+    def login(self, email: str, password: str) -> dict[str, Any]:
         clean_email = email.strip().lower()
         user_obj = self.users.get(clean_email)
         if not user_obj:
@@ -171,11 +172,11 @@ class AuthService:
                 "cin": user_obj["cin"],
                 "telephone": user_obj["telephone"],
                 "adresse": user_obj["adresse"],
-                "ontology_id": user_obj["ontology_id"]
-            }
+                "ontology_id": user_obj["ontology_id"],
+            },
         }
 
-    def get_current_user(self, token: str) -> Optional[Dict[str, Any]]:
+    def get_current_user(self, token: str) -> dict[str, Any] | None:
         email = self.sessions.get(token)
         if not email or email not in self.users:
             return None
@@ -188,16 +189,15 @@ class AuthService:
             "cin": u["cin"],
             "telephone": u["telephone"],
             "adresse": u["adresse"],
-            "ontology_id": u["ontology_id"]
+            "ontology_id": u["ontology_id"],
         }
-
 
     def update_user_role(self, ontology_id: str, new_role: str) -> bool:
         """Update role in the auth user store."""
         try:
             self.load_users()
             changed = False
-            for email, u in self.users.items():
+            for _email, u in self.users.items():
                 if u.get("ontology_id") == ontology_id:
                     u["role"] = new_role
                     changed = True
@@ -212,7 +212,9 @@ class AuthService:
         """Delete user from auth store by ontology_id."""
         try:
             self.load_users()
-            to_del = [email for email, u in self.users.items() if u.get("ontology_id") == ontology_id]
+            to_del = [
+                email for email, u in self.users.items() if u.get("ontology_id") == ontology_id
+            ]
             for email in to_del:
                 del self.users[email]
             if to_del:
@@ -222,5 +224,6 @@ class AuthService:
         except Exception as e:
             print("delete_user error:", e)
             return False
+
 
 auth_service = AuthService()
