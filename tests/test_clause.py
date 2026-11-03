@@ -4,6 +4,7 @@ Vérifie le CRUD complet, le cas ClauseFranchise et la gestion des erreurs HTTP 
 """
 
 from fastapi.testclient import TestClient
+
 from app.main import app
 
 client = TestClient(app)

@@ -4,7 +4,8 @@ Ce module implémente le cycle de vie CRUD complet pour la classe Clause
 et ses sous-classes (ClauseExclusion, ClauseFranchise, ClauseObligatoire).
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any
+
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
@@ -22,21 +23,25 @@ TYPES_CLAUSE_VALIDES = [
 
 # ── Modèles Pydantic ──────────────────────────────────────────────────────────
 
+
 class ClauseCreate(BaseModel):
     """Schéma de création d'une clause contractuelle."""
+
     type_clause: str = Field(
         default="ClauseExclusion",
         description="Sous-classe ontologique (ClauseExclusion, ClauseFranchise, ClauseObligatoire)",
     )
-    texte_clause: str = Field(..., min_length=1, description="Texte juridique ou libellé de la clause")
-    description: Optional[str] = Field(default="", description="Description explicative optionnelle")
-    taux_franchise: Optional[float] = Field(
+    texte_clause: str = Field(
+        ..., min_length=1, description="Texte juridique ou libellé de la clause"
+    )
+    description: str | None = Field(default="", description="Description explicative optionnelle")
+    taux_franchise: float | None = Field(
         default=None,
         ge=0.0,
         le=100.0,
         description="Taux de franchise en % (applicable principalement pour ClauseFranchise)",
     )
-    contrat_id: Optional[str] = Field(
+    contrat_id: str | None = Field(
         default=None,
         description="Identifiant du Contrat auquel rattacher la clause (ex: Contrat1)",
     )
@@ -44,28 +49,31 @@ class ClauseCreate(BaseModel):
 
 class ClauseUpdate(BaseModel):
     """Schéma de mise à jour d'une clause."""
-    type_clause: Optional[str] = None
-    texte_clause: Optional[str] = None
-    description: Optional[str] = None
-    taux_franchise: Optional[float] = None
-    contrat_id: Optional[str] = None
+
+    type_clause: str | None = None
+    texte_clause: str | None = None
+    description: str | None = None
+    taux_franchise: float | None = None
+    contrat_id: str | None = None
 
 
 class ClauseResponse(BaseModel):
     """Schéma de réponse pour une clause."""
+
     id: str
     type: str
     texte_clause: str
-    description: Optional[str] = ""
-    taux_franchise: Optional[float] = None
-    contrat: Optional[str] = None
+    description: str | None = ""
+    taux_franchise: float | None = None
+    contrat: str | None = None
 
 
 # ── Routes CRUD ───────────────────────────────────────────────────────────────
 
-@router.get("/", response_model=List[ClauseResponse])
-@router.get("", response_model=List[ClauseResponse])
-def get_all_clauses(type_clause: Optional[str] = None):
+
+@router.get("/", response_model=list[ClauseResponse])
+@router.get("", response_model=list[ClauseResponse])
+def get_all_clauses(type_clause: str | None = None):
     """
     Récupère la liste de toutes les clauses depuis l'ontologie OWL/RDF.
     Filtre optionnel sur le type de clause.
@@ -77,7 +85,7 @@ def get_all_clauses(type_clause: Optional[str] = None):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur lors de la récupération des clauses: {str(e)}",
-        )
+        ) from e
 
 
 @router.get("/{clause_id}", response_model=ClauseResponse)
@@ -95,8 +103,8 @@ def get_clause_by_id(clause_id: str):
     return clause
 
 
-@router.post("/", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED)
-@router.post("", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=dict[str, Any], status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=dict[str, Any], status_code=status.HTTP_201_CREATED)
 def create_clause(payload: ClauseCreate):
     """
     Crée un nouvel individu Clause dans l'ontologie OWL/RDF.
@@ -127,10 +135,10 @@ def create_clause(payload: ClauseCreate):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur lors de la création de la clause: {str(e)}",
-        )
+        ) from e
 
 
-@router.put("/{clause_id}", response_model=Dict[str, Any])
+@router.put("/{clause_id}", response_model=dict[str, Any])
 def update_clause(clause_id: str, payload: ClauseUpdate):
     """
     Met à jour une clause existante dans l'ontologie.
@@ -169,10 +177,10 @@ def update_clause(clause_id: str, payload: ClauseUpdate):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur lors de la mise à jour de la clause: {str(e)}",
-        )
+        ) from e
 
 
-@router.delete("/{clause_id}", response_model=Dict[str, Any])
+@router.delete("/{clause_id}", response_model=dict[str, Any])
 def delete_clause(clause_id: str):
     """
     Supprime une clause de l'ontologie OWL/RDF.
@@ -202,4 +210,4 @@ def delete_clause(clause_id: str):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur lors de la suppression de la clause: {str(e)}",
-        )
+        ) from e

@@ -5,7 +5,7 @@ et ses sous-classes (DommageMateriel, DommageCorporel, DommageImmateriel).
 """
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
@@ -39,23 +39,23 @@ class DommageCreate(BaseModel):
     description: str = Field(..., min_length=1, description="Description du dommage")
     montant: float = Field(default=0.0, ge=0.0, description="Montant indemnisé / estimé")
     gravite: str = Field(default="Faible", description="Niveau de gravité (Faible, Moyen, Grave)")
-    sinistre_id: Optional[str] = Field(
+    sinistre_id: str | None = Field(
         default=None, description="Identifiant du Sinistre lié (ex: Sinistre1)"
     )
-    date: Optional[datetime] = Field(default=None, description="Date du sinistre / dommage")
-    lieu: Optional[str] = Field(default=None, description="Lieu de survenance")
+    date: datetime | None = Field(default=None, description="Date du sinistre / dommage")
+    lieu: str | None = Field(default=None, description="Lieu de survenance")
 
 
 class DommageUpdate(BaseModel):
     """Schéma de mise à jour d'un dommage."""
 
-    type_dommage: Optional[str] = None
-    description: Optional[str] = None
-    montant: Optional[float] = None
-    gravite: Optional[str] = None
-    sinistre_id: Optional[str] = None
-    date: Optional[datetime] = None
-    lieu: Optional[str] = None
+    type_dommage: str | None = None
+    description: str | None = None
+    montant: float | None = None
+    gravite: str | None = None
+    sinistre_id: str | None = None
+    date: datetime | None = None
+    lieu: str | None = None
 
 
 class DommageResponse(BaseModel):
@@ -66,17 +66,17 @@ class DommageResponse(BaseModel):
     description: str
     montant: float
     gravite: str
-    sinistre: Optional[str] = None
-    date: Optional[str] = None
-    lieu: Optional[str] = None
+    sinistre: str | None = None
+    date: str | None = None
+    lieu: str | None = None
 
 
 # ── Routes CRUD ───────────────────────────────────────────────────────────────
 
 
-@router.get("/", response_model=List[DommageResponse])
-@router.get("", response_model=List[DommageResponse])
-def get_all_dommages(type_dommage: Optional[str] = None):
+@router.get("/", response_model=list[DommageResponse])
+@router.get("", response_model=list[DommageResponse])
+def get_all_dommages(type_dommage: str | None = None):
     """
     Récupère la liste de tous les dommages depuis l'ontologie OWL/RDF.
     Permet un filtrage optionnel par sous-type.
@@ -88,7 +88,7 @@ def get_all_dommages(type_dommage: Optional[str] = None):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur lors de la récupération des dommages: {str(e)}",
-        )
+        ) from e
 
 
 @router.get("/{dommage_id}", response_model=DommageResponse)
@@ -106,8 +106,8 @@ def get_dommage_by_id(dommage_id: str):
     return dommage
 
 
-@router.post("/", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED)
-@router.post("", response_model=Dict[str, Any], status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=dict[str, Any], status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=dict[str, Any], status_code=status.HTTP_201_CREATED)
 def create_dommage(payload: DommageCreate):
     """
     Crée un nouvel individu Dommage dans l'ontologie OWL/RDF.
@@ -147,7 +147,7 @@ def create_dommage(payload: DommageCreate):
         ) from e
 
 
-@router.put("/{dommage_id}", response_model=Dict[str, Any])
+@router.put("/{dommage_id}", response_model=dict[str, Any])
 def update_dommage(dommage_id: str, payload: DommageUpdate):
     """
     Met à jour les propriétés d'un dommage existant.
@@ -196,7 +196,7 @@ def update_dommage(dommage_id: str, payload: DommageUpdate):
         ) from e
 
 
-@router.delete("/{dommage_id}", response_model=Dict[str, Any])
+@router.delete("/{dommage_id}", response_model=dict[str, Any])
 def delete_dommage(dommage_id: str):
     """
     Supprime un dommage de l'ontologie OWL/RDF ainsi que tous ses triplets liés.
@@ -226,4 +226,4 @@ def delete_dommage(dommage_id: str):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur lors de la suppression du dommage: {str(e)}",
-        )
+        ) from e
