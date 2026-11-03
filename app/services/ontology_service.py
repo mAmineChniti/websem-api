@@ -8,7 +8,8 @@ from typing import Any
 import rdflib
 from rdflib import OWL, RDF, RDFS, XSD, Graph, Literal, Namespace
 
-# Lock global pour sérialiser l'analyse des requêtes SPARQL (pyparsing n'étant pas thread-safe dans rdflib)
+# Lock global pour sérialiser l'analyse des requêtes SPARQL
+# (pyparsing n'étant pas thread-safe dans rdflib)
 # RLock : save_graph() peut être appelé depuis execute_sparql() qui détient déjà le verrou.
 _sparql_lock = threading.RLock()
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z][A-Za-z0-9_-]*$")
@@ -35,6 +36,20 @@ def _validate_identifier(identifier: str) -> str:
     if not _IDENTIFIER_RE.fullmatch(identifier):
         raise ValueError("Identifiant ontologique invalide")
     return identifier
+
+
+def _date_time_literal(value):
+    """Construit une date conforme à la plage xsd:dateTime de l’ontologie."""
+    from datetime import datetime
+
+    parsed = (
+        value
+        if isinstance(value, datetime)
+        else datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    )
+    from rdflib import XSD, Literal
+
+    return Literal(parsed.isoformat(), datatype=XSD.dateTime)
 
 
 AS = Namespace(
@@ -244,7 +259,8 @@ ORDER BY ?typeGarantie""",
 SELECT DISTINCT ?declaration ?typeDeclaration ?date ?statut WHERE {
     ?declaration a owl:NamedIndividual ;
                  a ?typeDeclaration .
-    FILTER(?typeDeclaration != owl:NamedIndividual && contains(str(?typeDeclaration), 'Declaration'))
+    FILTER(?typeDeclaration != owl:NamedIndividual &&
+           contains(str(?typeDeclaration), 'Declaration'))
     OPTIONAL { ?declaration as:dateDeclaration ?date }
     OPTIONAL { ?declaration as:statutDeclaration ?statut }
 }
@@ -266,7 +282,8 @@ class OntologyService:
         if os.path.exists(self.rdf_path):
             self.graph.parse(self.rdf_path, format="xml")
             print(
-                f"[OntologyService] Ontologie chargee depuis {self.rdf_path} ({len(self.graph)} triplets)."
+                f"[OntologyService] Ontologie chargee depuis {self.rdf_path} "
+                f"({len(self.graph)} triplets)."
             )
         else:
             raise FileNotFoundError(f"Fichier d'ontologie non trouve: {self.rdf_path}")
@@ -344,7 +361,8 @@ class OntologyService:
         SELECT DISTINCT ?personne ?type ?nom ?prenom ?cin ?telephone ?adresse WHERE {{
             ?personne a owl:NamedIndividual .
             {{
-                # Cas 1 : Individu avec type explicite (Assure, Agent, Expert, Beneficiaire, Personne)
+                # Cas 1 : Individu avec type explicite
+                # (Assure, Agent, Expert, Beneficiaire, Personne)
                 ?personne a ?type .
                 FILTER(?type != owl:NamedIndividual)
                 FILTER(!contains(str(?type), 'Rapport'))
@@ -506,7 +524,10 @@ class OntologyService:
             filter_clause = f'FILTER(contains(str(?typeContrat), "{escaped_type}"))'
 
         q = f"""
-        SELECT DISTINCT ?contrat ?typeContrat ?numeroContrat ?dateDebut ?dateFin ?montantPrime ?franchise ?assure ?habitation ?garanties ?beneficiaire WHERE {{
+        SELECT DISTINCT ?contrat ?typeContrat ?numeroContrat
+            ?dateDebut ?dateFin ?montantPrime ?franchise
+            ?assure ?habitation ?garanties ?beneficiaire
+        WHERE {{
             ?contrat a owl:NamedIndividual ;
                      a ?typeContrat .
             FILTER(?typeContrat != owl:NamedIndividual)
@@ -538,7 +559,12 @@ class OntologyService:
         _validate_identifier(c_id)
         c_uri = AS[c_id]
         c_type = data.get("type", "ContratProprietaire")
-        if c_type not in {"Contrat", "ContratProprietaire", "ContratLocataire", "ContratCopropriete"}:
+        if c_type not in {
+            "Contrat",
+            "ContratProprietaire",
+            "ContratLocataire",
+            "ContratCopropriete",
+        }:
             raise ValueError("Type de contrat ontologique invalide")
         type_uri = UNT[c_type]
 
@@ -755,9 +781,7 @@ class OntologyService:
                 "en cours": UNT.DeclarationEnCours,
                 "encours": UNT.DeclarationEnCours,
             }
-            normalized_status = (
-                statut.strip().casefold().replace("é", "e").replace("è", "e")
-            )
+            normalized_status = statut.strip().casefold().replace("é", "e").replace("è", "e")
             for status_type in (
                 UNT.DeclarationAcceptee,
                 UNT.DeclarationRejetee,
@@ -982,7 +1006,8 @@ class OntologyService:
         """Récupère une garantie par son identifiant."""
         _validate_identifier(ontology_id)
         q = f"""
-        SELECT DISTINCT ?garantie ?typeGarantie ?nomGarantie ?plafondGarantie ?tauxFranchise WHERE {{
+        SELECT DISTINCT ?garantie ?typeGarantie ?nomGarantie ?plafondGarantie ?tauxFranchise
+        WHERE {{
             VALUES ?garantie {{ <{AS[ontology_id]}> }}
             ?garantie a owl:NamedIndividual ;
                       a ?typeGarantie .
@@ -1115,7 +1140,8 @@ class OntologyService:
                    || contains(str(?typeDocument), 'Facture'))
             OPTIONAL { ?document as:nomFichier ?nomFichier }
             OPTIONAL { ?document as:dateUpload ?dateUpload }
-            OPTIONAL { ?declaration as:estJustifiePar ?document . ?viaSinistre as:faitObjetDe ?declaration }
+            OPTIONAL { ?declaration as:estJustifiePar ?document .
+                ?viaSinistre as:faitObjetDe ?declaration }
             BIND(COALESCE(?viaSinistre, "") AS ?associeSinistre)
         }
         ORDER BY ?document
@@ -1137,7 +1163,8 @@ class OntologyService:
                    || contains(str(?typeDocument), 'Facture'))
             OPTIONAL {{ ?document as:nomFichier ?nomFichier }}
             OPTIONAL {{ ?document as:dateUpload ?dateUpload }}
-            OPTIONAL {{ ?declaration as:estJustifiePar ?document . ?viaSinistre as:faitObjetDe ?declaration }}
+            OPTIONAL {{ ?declaration as:estJustifiePar ?document .
+                ?viaSinistre as:faitObjetDe ?declaration }}
             BIND(COALESCE(?viaSinistre, "") AS ?associeSinistre)
         }}
         """
@@ -1227,7 +1254,9 @@ class OntologyService:
     def get_all_dommages(self) -> list[dict[str, Any]]:
         """Retourne tous les dommages de l'ontologie."""
         q = """
-        SELECT DISTINCT ?dommage ?typeDommage ?description ?niveauGravite ?valeurBien ?associeSinistre WHERE {
+        SELECT DISTINCT ?dommage ?typeDommage ?description
+            ?niveauGravite ?valeurBien ?associeSinistre
+        WHERE {
             ?dommage a owl:NamedIndividual ;
                       a ?typeDommage .
             FILTER(?typeDommage != owl:NamedIndividual && contains(str(?typeDommage), 'Dommage'))
@@ -1246,7 +1275,9 @@ class OntologyService:
         """Récupère un dommage par son identifiant."""
         _validate_identifier(ontology_id)
         q = f"""
-        SELECT DISTINCT ?dommage ?typeDommage ?description ?niveauGravite ?valeurBien ?associeSinistre WHERE {{
+        SELECT DISTINCT ?dommage ?typeDommage ?description
+            ?niveauGravite ?valeurBien ?associeSinistre
+        WHERE {{
             VALUES ?dommage {{ <{AS[ontology_id]}> }}
             ?dommage a ?typeDommage .
             FILTER(contains(str(?typeDommage), 'Dommage'))
@@ -1260,68 +1291,14 @@ class OntologyService:
         results = self.execute_sparql(q)
         return results["results"][0] if results["results"] else {}
 
-    def update_dommage(self, dommage_id: str, data: dict[str, Any]) -> bool:
-        """Met à jour les propriétés d'un dommage existant."""
-        _validate_identifier(dommage_id)
-        d_uri = AS[dommage_id]
-        exists = (d_uri, RDF.type, OWL.NamedIndividual) in self.graph
-        if not exists:
-            return False
-
-        if data.get("typeDommage"):
-            if data["typeDommage"] not in {
-                "Dommage",
-                "DommageCorporel",
-                "DommageImmateriel",
-                "DommageMateriel",
-            }:
-                raise ValueError("Type de dommage ontologique invalide")
-            type_uri = UNT[data["typeDommage"]]
-            self.graph.remove((d_uri, RDF.type, None))
-            self.graph.add((d_uri, RDF.type, OWL.NamedIndividual))
-            self.graph.add((d_uri, RDF.type, type_uri))
-        if data.get("description"):
-            self.graph.remove((d_uri, RDFS.comment, None))
-            self.graph.add((d_uri, RDFS.comment, Literal(data["description"], datatype=XSD.string)))
-        if data.get("niveauGravite"):
-            self.graph.remove((d_uri, AS.niveauGravite, None))
-            self.graph.add(
-                (d_uri, AS.niveauGravite, Literal(data["niveauGravite"], datatype=XSD.string))
-            )
-        if data.get("valeurBien") is not None:
-            self.graph.remove((d_uri, AS.valeurBien, None))
-            self.graph.add(
-                (d_uri, AS.valeurBien, Literal(float(data["valeurBien"]), datatype=XSD.float))
-            )
-        if "associeSinistre" in data:
-            for old_s in list(self.graph.subjects(AS.provoqueDommage, d_uri)):
-                self.graph.remove((old_s, AS.provoqueDommage, d_uri))
-            if data["associeSinistre"]:
-                s_uri = AS[data["associeSinistre"]]
-                self.graph.add((s_uri, AS.provoqueDommage, d_uri))
-
-        self.save_graph()
-        return True
-
-    def delete_dommage(self, ontology_id: str) -> bool:
-        """Supprime un dommage de l'ontologie."""
-        _validate_identifier(ontology_id)
-        d_uri = AS[ontology_id]
-        triples = list(self.graph.triples((d_uri, None, None)))
-        if not triples:
-            return False
-        for t in triples:
-            self.graph.remove(t)
-        self.save_graph()
-        return len(triples) > 0
-
     # ── Méthodes d'exploration ontologique ───────────────────────────────────
     def get_all_classes(self) -> list[dict[str, Any]]:
         """Retourne toutes les classes OWL de l'ontologie avec leur hiérarchie."""
         q = """
         SELECT DISTINCT ?classe ?superClasse WHERE {
             ?classe a owl:Class .
-            FILTER(!isBlank(?classe) && (STRSTARTS(STR(?classe), STR(unt:)) || STRSTARTS(STR(?classe), STR(as:))))
+            FILTER(!isBlank(?classe) && (STRSTARTS(STR(?classe), STR(unt:)) ||
+                   STRSTARTS(STR(?classe), STR(as:))))
             OPTIONAL { ?classe rdfs:subClassOf ?superClasse . FILTER(!isBlank(?superClasse)) }
         }
         ORDER BY ?superClasse ?classe
@@ -1421,6 +1398,419 @@ class OntologyService:
             "ontology_uri": "http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres",
             "rdf_format": "OWL/RDF XML (Protégé)",
         }
+
+    # ── Module MONTAHA : DOMMAGES ─────────────────────────────────────────────
+    def get_dommages(self, type_filter: str | None = None) -> list[dict[str, Any]]:
+        """Retourne la liste des dommages depuis l'ontologie OWL/RDF."""
+        filter_clause = ""
+        if type_filter:
+            filter_clause = f"FILTER(contains(str(?typeDommage), '{type_filter}'))"
+
+        q = f"""
+        SELECT DISTINCT ?dommage ?typeDommage ?gravite ?montant ?description ?date ?lieu ?sinistre
+        WHERE {{
+            ?dommage a ?typeDommage .
+            FILTER(!isBlank(?dommage))
+            FILTER(?typeDommage != owl:NamedIndividual)
+            FILTER(?typeDommage != owl:Class)
+            FILTER(?typeDommage != owl:ObjectProperty)
+            FILTER(?typeDommage != owl:DatatypeProperty)
+            FILTER(contains(str(?typeDommage), 'Dommage') || contains(str(?dommage), 'Dommage'))
+            {filter_clause}
+            OPTIONAL {{ ?dommage as:niveauGravite ?gravite }}
+            OPTIONAL {{ ?dommage as:montantIndemnise ?montant }}
+            OPTIONAL {{ ?dommage as:descriptionSinistre ?description }}
+            OPTIONAL {{ ?dommage as:dateSinistre ?date }}
+            OPTIONAL {{ ?dommage as:lieuSinistre ?lieu }}
+            OPTIONAL {{
+                {{ ?sinistre as:provoqueDommage ?dommage }}
+                UNION
+                {{ ?sinistre as:aPourDommage ?dommage }}
+                UNION
+                {{ ?dommage as:estProvoquePar ?sinistre }}
+            }}
+        }}
+        ORDER BY ?typeDommage ?dommage
+        """
+        raw = self.execute_sparql(q)["results"]
+        cleaned = []
+        seen = set()
+        for d in raw:
+            dom_id = d.get("dommage")
+            if not dom_id or dom_id in seen:
+                continue
+            if dom_id.endswith("Property") or dom_id.startswith("provoque") or dom_id == "Dommage":
+                continue
+            seen.add(dom_id)
+            cleaned.append(
+                {
+                    "id": dom_id,
+                    "type": d.get("typeDommage") or "DommageMateriel",
+                    "description": d.get("description") or "",
+                    "montant": float(d["montant"]) if d.get("montant") else 0.0,
+                    "gravite": d.get("gravite") or "Faible",
+                    "sinistre": d.get("sinistre"),
+                    "date": d.get("date"),
+                    "lieu": d.get("lieu"),
+                }
+            )
+        return cleaned
+
+    def get_dommage_by_id(self, dommage_id: str) -> dict[str, Any] | None:
+        dommages = self.get_dommages()
+        for d in dommages:
+            if d["id"] == dommage_id:
+                return d
+        return None
+
+    def create_dommage(self, data: dict[str, Any]) -> str:
+        """Crée un nouvel individu Dommage dans l'ontologie RDF."""
+        existing = self.get_dommages()
+        d_id = data.get("id") or f"Dommage{len(existing) + 1}"
+        existing_ids = {e["id"] for e in existing}
+        counter = len(existing) + 1
+        while d_id in existing_ids:
+            counter += 1
+            d_id = f"Dommage{counter}"
+
+        d_uri = AS[d_id]
+        raw_type = data.get("type_dommage") or data.get("type") or "DommageMateriel"
+        if "materiel" in raw_type.lower() and "im" not in raw_type.lower():
+            type_name = "DommageMateriel"
+        elif "corporel" in raw_type.lower():
+            type_name = "DommageCorporel"
+        elif "immateriel" in raw_type.lower() or "immatériel" in raw_type.lower():
+            type_name = "DommageImmateriel"
+        else:
+            type_name = raw_type
+
+        type_uri = UNT[type_name]
+
+        self.graph.add((d_uri, RDF.type, OWL.NamedIndividual))
+        self.graph.add((d_uri, RDF.type, type_uri))
+
+        if data.get("gravite"):
+            self.graph.add((d_uri, AS.niveauGravite, Literal(data["gravite"], datatype=XSD.string)))
+        if data.get("montant") is not None:
+            self.graph.add(
+                (d_uri, AS.montantIndemnise, Literal(float(data["montant"]), datatype=XSD.float))
+            )
+        if data.get("description"):
+            self.graph.add(
+                (d_uri, AS.descriptionSinistre, Literal(data["description"], datatype=XSD.string))
+            )
+        if data.get("date"):
+            self.graph.add((d_uri, AS.dateSinistre, _date_time_literal(data["date"])))
+        if data.get("lieu"):
+            self.graph.add((d_uri, AS.lieuSinistre, Literal(data["lieu"], datatype=XSD.string)))
+
+        # Liaison avec Sinistre
+        if data.get("sinistre_id") or data.get("sinistre"):
+            sinistre_val = data.get("sinistre_id") or data.get("sinistre")
+            sinistre_uri = AS[sinistre_val]
+            self.graph.add((sinistre_uri, AS.provoqueDommage, d_uri))
+            self.graph.add((d_uri, AS.estProvoquePar, sinistre_uri))
+
+        self.save_graph()
+        return d_id
+
+    # ── Module MONTAHA : CLAUSES ──────────────────────────────────────────────
+    def get_clauses(self, type_filter: str | None = None) -> list[dict[str, Any]]:
+        """Retourne la liste des clauses depuis l'ontologie OWL/RDF."""
+        filter_clause = ""
+        if type_filter:
+            filter_clause = f"FILTER(contains(str(?typeClause), '{type_filter}'))"
+
+        q = f"""
+        SELECT DISTINCT ?clause ?typeClause ?texteClause ?tauxFranchise ?description ?contrat
+        WHERE {{
+            ?clause a ?typeClause .
+            FILTER(!isBlank(?clause))
+            FILTER(?typeClause != owl:NamedIndividual)
+            FILTER(?typeClause != owl:Class)
+            FILTER(?typeClause != owl:ObjectProperty)
+            FILTER(?typeClause != owl:DatatypeProperty)
+            FILTER(contains(str(?typeClause), 'Clause') || contains(str(?clause), 'Clause'))
+            {filter_clause}
+            OPTIONAL {{ ?clause as:texteClause ?texteClause }}
+            OPTIONAL {{ ?clause as:tauxFranchise ?tauxFranchise }}
+            OPTIONAL {{ ?clause as:description ?description }}
+            OPTIONAL {{
+                {{ ?contrat as:aPourClause ?clause }}
+                UNION
+                {{ ?clause as:estClauseDe ?contrat }}
+                UNION
+                {{ ?clause as:concerneContrat ?contrat }}
+            }}
+        }}
+        ORDER BY ?typeClause ?clause
+        """
+        raw = self.execute_sparql(q)["results"]
+        cleaned = []
+        seen = set()
+        for c in raw:
+            cl_id = c.get("clause")
+            if not cl_id or cl_id in seen:
+                continue
+            if cl_id.endswith("Property") or cl_id.startswith("aPour") or cl_id == "Clause":
+                continue
+            seen.add(cl_id)
+            cleaned.append(
+                {
+                    "id": cl_id,
+                    "type": c.get("typeClause") or "ClauseExclusion",
+                    "texte_clause": c.get("texteClause") or "",
+                    "description": c.get("description") or "",
+                    "taux_franchise": float(c["tauxFranchise"]) if c.get("tauxFranchise") else None,
+                    "contrat": c.get("contrat"),
+                }
+            )
+        return cleaned
+
+    def get_all_clauses(self, type_filter: str | None = None) -> list[dict[str, Any]]:
+        return self.get_clauses(type_filter)
+
+    def get_clause_by_id(self, clause_id: str) -> dict[str, Any] | None:
+        clauses = self.get_clauses()
+        for c in clauses:
+            if c["id"] == clause_id:
+                return c
+        return None
+
+    def create_clause(self, data: dict[str, Any]) -> str:
+        """Crée une nouvelle clause dans l'ontologie RDF."""
+        existing = self.get_clauses()
+        c_id = data.get("id") or f"Clause{len(existing) + 1}"
+        existing_ids = {e["id"] for e in existing}
+        counter = len(existing) + 1
+        while c_id in existing_ids:
+            counter += 1
+            c_id = f"Clause{counter}"
+
+        c_uri = AS[c_id]
+        raw_type = data.get("type_clause") or data.get("type") or "ClauseExclusion"
+        if "exclusion" in raw_type.lower():
+            type_name = "ClauseExclusion"
+        elif "franchise" in raw_type.lower():
+            type_name = "ClauseFranchise"
+        elif "obligatoire" in raw_type.lower():
+            type_name = "ClauseObligatoire"
+        else:
+            type_name = raw_type
+
+        type_uri = UNT[type_name]
+
+        self.graph.add((c_uri, RDF.type, OWL.NamedIndividual))
+        self.graph.add((c_uri, RDF.type, type_uri))
+
+        if data.get("texte_clause") or data.get("texteClause"):
+            txt = data.get("texte_clause") or data.get("texteClause")
+            self.graph.add((c_uri, AS.texteClause, Literal(txt, datatype=XSD.string)))
+
+        if (data.get("taux_franchise") is not None) or (data.get("tauxFranchise") is not None):
+            val = (
+                data.get("taux_franchise")
+                if data.get("taux_franchise") is not None
+                else data.get("tauxFranchise")
+            )
+            self.graph.add((c_uri, AS.tauxFranchise, Literal(float(val), datatype=XSD.float)))
+
+        if data.get("description"):
+            self.graph.add(
+                (c_uri, AS.description, Literal(data["description"], datatype=XSD.string))
+            )
+
+        # Liaison avec Contrat
+        if data.get("contrat_id") or data.get("contrat"):
+            contrat_val = data.get("contrat_id") or data.get("contrat")
+            contrat_uri = AS[contrat_val]
+            self.graph.add((contrat_uri, AS.aPourClause, c_uri))
+            self.graph.add((c_uri, AS.estClauseDe, contrat_uri))
+
+        self.save_graph()
+        return c_id
+
+    def update_clause(self, clause_id: str, data: dict[str, Any]) -> bool:
+        """Met à jour une clause existante."""
+        c_uri = AS[clause_id]
+        found = any(True for _ in self.graph.triples((c_uri, None, None)))
+        if not found:
+            return False
+
+        if data.get("type_clause") or data.get("type"):
+            raw_type = data.get("type_clause") or data.get("type")
+            if "exclusion" in raw_type.lower():
+                type_name = "ClauseExclusion"
+            elif "franchise" in raw_type.lower():
+                type_name = "ClauseFranchise"
+            elif "obligatoire" in raw_type.lower():
+                type_name = "ClauseObligatoire"
+            else:
+                type_name = raw_type
+
+            for ct in ["ClauseExclusion", "ClauseFranchise", "ClauseObligatoire", "Clause"]:
+                for ns in [AS, UNT]:
+                    try:
+                        self.graph.remove((c_uri, RDF.type, ns[ct]))
+                    except Exception:
+                        pass
+            self.graph.add((c_uri, RDF.type, UNT[type_name]))
+            self.graph.add((c_uri, RDF.type, OWL.NamedIndividual))
+
+        if ("texte_clause" in data and data["texte_clause"]) or (
+            "texteClause" in data and data["texteClause"]
+        ):
+            txt = data.get("texte_clause") or data.get("texteClause")
+            self.graph.remove((c_uri, AS.texteClause, None))
+            self.graph.add((c_uri, AS.texteClause, Literal(txt, datatype=XSD.string)))
+
+        if ("taux_franchise" in data and data["taux_franchise"] is not None) or (
+            "tauxFranchise" in data and data["tauxFranchise"] is not None
+        ):
+            val = (
+                data.get("taux_franchise")
+                if data.get("taux_franchise") is not None
+                else data.get("tauxFranchise")
+            )
+            self.graph.remove((c_uri, AS.tauxFranchise, None))
+            self.graph.add((c_uri, AS.tauxFranchise, Literal(float(val), datatype=XSD.float)))
+
+        if "description" in data and data["description"]:
+            self.graph.remove((c_uri, AS.description, None))
+            self.graph.add(
+                (c_uri, AS.description, Literal(data["description"], datatype=XSD.string))
+            )
+
+        if "contrat_id" in data or "contrat" in data:
+            contrat_val = data.get("contrat_id") or data.get("contrat")
+            for s, p, o in list(self.graph.triples((None, AS.aPourClause, c_uri))):
+                self.graph.remove((s, p, o))
+            self.graph.remove((c_uri, AS.estClauseDe, None))
+            if contrat_val:
+                co_uri = AS[contrat_val]
+                self.graph.add((co_uri, AS.aPourClause, c_uri))
+                self.graph.add((c_uri, AS.estClauseDe, co_uri))
+
+        self.save_graph()
+        return True
+
+    def delete_clause(self, clause_id: str) -> bool:
+        """Supprime une clause et ses triplets associés."""
+        c_uri = AS[clause_id]
+        triples_to_remove = list(self.graph.triples((c_uri, None, None))) + list(
+            self.graph.triples((None, None, c_uri))
+        )
+        for t in triples_to_remove:
+            self.graph.remove(t)
+        self.save_graph()
+        return len(triples_to_remove) > 0
+
+    # ── Unified dommage update/delete (master + feature keys) ─────────────────
+    def update_dommage(self, dommage_id: str, data: Any) -> bool:
+        """Met à jour les propriétés d'un dommage (supporte les clés master et feature)."""
+        _validate_identifier(dommage_id)
+        d_uri = AS[dommage_id]
+        exists = any(True for _ in self.graph.triples((d_uri, None, None)))
+        if not exists:
+            return False
+
+        raw_type = data.get("typeDommage") or data.get("type_dommage") or data.get("type")
+        if raw_type:
+            raw_str = str(raw_type)
+            if "materiel" in raw_str.lower() and "im" not in raw_str.lower():
+                type_name = "DommageMateriel"
+            elif "corporel" in raw_str.lower():
+                type_name = "DommageCorporel"
+            elif "immateriel" in raw_str.lower() or "immatériel" in raw_str.lower():
+                type_name = "DommageImmateriel"
+            else:
+                type_name = raw_str
+            if type_name not in {
+                "Dommage",
+                "DommageCorporel",
+                "DommageImmateriel",
+                "DommageMateriel",
+            }:
+                raise ValueError("Type de dommage ontologique invalide")
+            for dt in [
+                "DommageMateriel",
+                "DommageCorporel",
+                "DommageImmateriel",
+                "DommageImmatériel",
+                "Dommage",
+            ]:
+                for ns in [AS, UNT]:
+                    try:
+                        self.graph.remove((d_uri, RDF.type, ns[dt]))
+                    except Exception:
+                        pass
+            self.graph.add((d_uri, RDF.type, OWL.NamedIndividual))
+            self.graph.add((d_uri, RDF.type, UNT[type_name]))
+
+        if "description" in data and data.get("description") is not None:
+            self.graph.remove((d_uri, RDFS.comment, None))
+            self.graph.add((d_uri, RDFS.comment, Literal(data["description"], datatype=XSD.string)))
+            self.graph.remove((d_uri, AS.descriptionSinistre, None))
+            self.graph.add(
+                (d_uri, AS.descriptionSinistre, Literal(data["description"], datatype=XSD.string))
+            )
+
+        gravite = data.get("niveauGravite")
+        if gravite is None:
+            gravite = data.get("gravite")
+        if gravite:
+            self.graph.remove((d_uri, AS.niveauGravite, None))
+            self.graph.add((d_uri, AS.niveauGravite, Literal(gravite, datatype=XSD.string)))
+
+        montant = data.get("valeurBien")
+        if montant is None:
+            montant = data.get("montant")
+        if montant is not None:
+            self.graph.remove((d_uri, AS.valeurBien, None))
+            self.graph.add((d_uri, AS.valeurBien, Literal(float(montant), datatype=XSD.float)))
+            self.graph.remove((d_uri, AS.montantIndemnise, None))
+            self.graph.add(
+                (d_uri, AS.montantIndemnise, Literal(float(montant), datatype=XSD.float))
+            )
+
+        if "date" in data and data.get("date"):
+            self.graph.remove((d_uri, AS.dateSinistre, None))
+            self.graph.add((d_uri, AS.dateSinistre, _date_time_literal(data["date"])))
+
+        if "lieu" in data and data.get("lieu"):
+            self.graph.remove((d_uri, AS.lieuSinistre, None))
+            self.graph.add((d_uri, AS.lieuSinistre, Literal(data["lieu"], datatype=XSD.string)))
+
+        sinistre_val = None
+        if "associeSinistre" in data:
+            sinistre_val = data.get("associeSinistre")
+        if sinistre_val is None and ("sinistre_id" in data or "sinistre" in data):
+            sinistre_val = data.get("sinistre_id") or data.get("sinistre")
+        if "associeSinistre" in data or "sinistre_id" in data or "sinistre" in data:
+            for old_s in list(self.graph.subjects(AS.provoqueDommage, d_uri)):
+                self.graph.remove((old_s, AS.provoqueDommage, d_uri))
+            self.graph.remove((d_uri, AS.estProvoquePar, None))
+            if sinistre_val:
+                s_uri = AS[sinistre_val]
+                self.graph.add((s_uri, AS.provoqueDommage, d_uri))
+                self.graph.add((d_uri, AS.estProvoquePar, s_uri))
+
+        self.save_graph()
+        return True
+
+    def delete_dommage(self, dommage_id: str) -> bool:
+        """Supprime un dommage et tous ses triplets associés."""
+        _validate_identifier(dommage_id)
+        d_uri = AS[dommage_id]
+        triples_to_remove = list(self.graph.triples((d_uri, None, None))) + list(
+            self.graph.triples((None, None, d_uri))
+        )
+        if not triples_to_remove:
+            return False
+        for t in triples_to_remove:
+            self.graph.remove(t)
+        self.save_graph()
+        return True
 
 
 ontology_service = OntologyService()

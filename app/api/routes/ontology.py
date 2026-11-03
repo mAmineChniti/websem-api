@@ -93,7 +93,7 @@ def reload_ontology():
         result = ontology_service.reload_graph()
         return {"message": "Ontologie rechargée avec succès", **result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 # ── 1. AUTHENTIFICATION ───────────────────────────────────────────────────────
@@ -116,7 +116,7 @@ def register(req: RegisterRequest):
         )
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.post("/auth/login")
@@ -124,7 +124,7 @@ def login(req: LoginRequest):
     try:
         return auth_service.login(req.email, req.password)
     except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
+        raise HTTPException(status_code=401, detail=str(e)) from e
 
 
 @router.get("/auth/me")
@@ -162,7 +162,7 @@ def update_personne(personne_id: str, req: PersonneUpdateRequest):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.delete("/personnes/{personne_id}")
@@ -179,7 +179,7 @@ def delete_personne(personne_id: str):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.patch("/personnes/{personne_id}/role")
@@ -196,7 +196,7 @@ def change_role_personne(personne_id: str, req: ChangeRoleRequest):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 # ── 3. MODULE HIBA : CONTRATS ─────────────────────────────────────────────────
@@ -223,7 +223,7 @@ def update_contrat(contrat_id: str, req: ContratUpdateRequest):
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.delete("/contrats/{contrat_id}")
@@ -247,7 +247,7 @@ def search_ontology(q: str, limit: int = 100):
     try:
         return ontology_service.search(q, limit=limit)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 # ── 5. SPARQL DIRECT ─────────────────────────────────────────────────────────
@@ -256,7 +256,7 @@ def execute_sparql(req: SPARQLQueryRequest):
     try:
         return ontology_service.execute_sparql(req.query)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.get("/sparql/examples")
@@ -275,7 +275,7 @@ def ask_nlp(req: NLPQuestionRequest):
     try:
         return nlp_translator.translate_to_sparql(req.question)
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.get("/nlp/intents")
@@ -288,7 +288,8 @@ def get_nlp_intents():
             "Étape 1 — NLTK : word_tokenize (fr) + stopwords français + SnowballStemmer",
             "Étape 2 — spaCy fr_core_news_sm : NER (entités nommées) + POS tagging",
             "Étape 3 — Intent Matcher : score sur mots-clés et stems → SPARQL ciblé",
-            "Étape 4 — Slots : spaCy NER + regex → filtres SPARQL (montant, lieu, personne, date, statut)",
+            "Étape 4 — Slots : spaCy NER + regex → filtres "
+            "SPARQL (montant, lieu, personne, date, statut)",
         ],
         "libraries": ["NLTK 3.x", "spaCy 3.x (fr_core_news_sm)", "rdflib 7.x"],
     }
@@ -319,7 +320,7 @@ def get_data_properties():
     return ontology_service.get_data_properties()
 
 
-# ── 7b. ENTITÉS MANQUANTES DE L'ONTOLOGIE (Sinistre, Garantie, Document, Dommage…) ─────────────────────────────────
+# ── 7b. ENTITÉS MANQUANTES DE L'ONTOLOGIE (Sinistre, Garantie, Document, Dommage…) ─────
 class SinistreCreateRequest(BaseModel):
     type: str = "SinistreIncendie"
     dateSinistre: str
@@ -360,7 +361,7 @@ def create_sinistre(req: SinistreCreateRequest):
         res = ontology_service.add_sinistre(data)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.get("/sinistres")
@@ -393,7 +394,7 @@ def update_sinistre(ontology_id: str, req: SinistreUpdateRequest):
         res = ontology_service.update_sinistre(ontology_id, updates)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.delete("/sinistres/{ontology_id}")
@@ -403,7 +404,7 @@ def delete_sinistre(ontology_id: str):
         res = ontology_service.delete_sinistre(ontology_id)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 # Garantie routes
@@ -414,7 +415,7 @@ def create_garantie(req: dict):
         res = ontology_service.add_garantie(req)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.get("/garanties")
@@ -440,7 +441,7 @@ def update_garantie(ontology_id: str, req: dict):
         res = ontology_service.update_garantie(ontology_id, updates)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.delete("/garanties/{ontology_id}")
@@ -450,7 +451,7 @@ def delete_garantie(ontology_id: str):
         res = ontology_service.delete_garantie(ontology_id)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 # Document routes
@@ -461,7 +462,7 @@ def create_document(req: dict):
         res = ontology_service.add_document(req)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.get("/documents")
@@ -487,7 +488,7 @@ def update_document(ontology_id: str, req: dict):
         res = ontology_service.update_document(ontology_id, updates)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.delete("/documents/{ontology_id}")
@@ -497,7 +498,7 @@ def delete_document(ontology_id: str):
         res = ontology_service.delete_document(ontology_id)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 # Dommage routes
@@ -508,7 +509,7 @@ def create_dommage(req: dict):
         res = ontology_service.add_dommage(req)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.get("/dommages")
@@ -534,7 +535,7 @@ def update_dommage(ontology_id: str, req: dict):
         res = ontology_service.update_dommage(ontology_id, updates)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 @router.delete("/dommages/{ontology_id}")
@@ -544,7 +545,7 @@ def delete_dommage(ontology_id: str):
         res = ontology_service.delete_dommage(ontology_id)
         return res
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e)) from e
 
 
 PROMOTIONS_FILE = str(Path(__file__).resolve().parent.parent.parent.parent / "promotions.json")
@@ -615,7 +616,9 @@ def approve_promotion(promo_id: str):
         ontology_service.change_role_personne(promo["ontology_id"], promo["requested_role"])
         auth_service.update_user_role(promo["ontology_id"], promo["requested_role"])
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erreur lors du changement de role: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"Erreur lors du changement de role: {e}"
+        ) from e
     return {"status": "approved", "new_role": promo["requested_role"]}
 
 

@@ -72,7 +72,12 @@ def test_sinistre_document_dommage_garantie_crud():
         assert svc.update_sinistre(sid, {"lieuSinistre": "Sousse", "statut": "Acceptée"}) is True
 
         gid = svc.add_garantie(
-            {"type": "GarantieIncendie", "nomGarantie": "Test garantie", "plafondGarantie": 10.0, "franchise": 1.0}
+            {
+                "type": "GarantieIncendie",
+                "nomGarantie": "Test garantie",
+                "plafondGarantie": 10.0,
+                "franchise": 1.0,
+            }
         )["id"]
         assert any(g["garantie"] == gid for g in svc.get_all_garanties())
         assert svc.update_garantie(gid, {"nomGarantie": "Updated"}) is True
@@ -101,14 +106,19 @@ def test_sparql_update_on_copy():
     svc, path = _service_copy()
     try:
         svc.execute_sparql(
-            "INSERT DATA { <http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#TestPersonne> a <http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne> }"
+            "INSERT DATA { <http://www.semanticweb.org/asus/ontologies/2026/8/"
+            "Assuarnce_et_Gestion_des_Sinistres#TestPersonne> a <http://www.semanticweb.org/"
+            "asus/ontologies/2026/8/untitled-ontology-5#Personne> }"
         )
         rows = svc.execute_sparql(
-            "SELECT ?x WHERE { ?x a <http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne> }"
+            "SELECT ?x WHERE { ?x a <http://www.semanticweb.org/"
+            "asus/ontologies/2026/8/untitled-ontology-5#Personne> }"
         )["results"]
         assert any(r["x"] == "TestPersonne" for r in rows)
         svc.execute_sparql(
-            "DELETE DATA { <http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#TestPersonne> a <http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Personne> }"
+            "DELETE DATA { <http://www.semanticweb.org/asus/ontologies/2026/8/"
+            "Assuarnce_et_Gestion_des_Sinistres#TestPersonne> a <http://www.semanticweb.org/"
+            "asus/ontologies/2026/8/untitled-ontology-5#Personne> }"
         )
     finally:
         os.unlink(path)
