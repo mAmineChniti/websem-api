@@ -17,6 +17,11 @@ Assurance habitation et gestion des sinistres.
 - SPARQL CRUD/filtering/search: yes (REST endpoints + direct `/sparql` + examples).
 - Front/back communication: REST JSON + CORS; frontend is a separate project.
 - NLP translator NL → SPARQL: yes (`/api/ontology/nlp/ask`).
+- Coverage: 33 intents, including generic + subtype queries for the
+  **sinistre** module (incendie, vol, dégât des eaux, bris de glace,
+  catastrophe naturelle) and the **garantie** module (same subtypes +
+  responsabilité civile, clauses), with dynamic amount/location/person/
+  status/date filters.
 
 ## Demo questions for NLP
 - "Liste les assurés"
@@ -24,6 +29,16 @@ Assurance habitation et gestion des sinistres.
 - "Liste les contrats"
 - "Statistiques sur les primes"
 - "Liste les sinistres"
+- "Liste les sinistres incendie"
+- "Liste les sinistres de vol"
+- "Liste les sinistres dégât des eaux"
+- "Liste les garanties"
+- "Liste les garanties incendie"
+- "Liste les garanties responsabilité civile"
+- "Liste les clauses"
 - "Déclarations acceptées"
+- "Déclarations rejetées"
+- "Contrats dont la prime dépasse 700 dinars"
+- "Qui est l'assuré BenAli ?"
 - "Classes de l'ontologie"
 - "Propriétés de l'ontologie"

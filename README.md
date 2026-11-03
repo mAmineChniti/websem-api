@@ -30,7 +30,16 @@ It uses:
   (persons, locations, amounts, dates).
 - **rdflib** for parsing the ontology and executing the generated SPARQL.
 - An in-house intent matcher (keyword + stem scoring) that selects one of
-  20 predefined SPARQL templates and injects detected slots as `FILTER`s.
+  33 predefined SPARQL templates and injects detected slots as `FILTER`s.
+  Class filters are grounded in the ontology with `rdfs:subClassOf*` (so
+  `SinistreIncendie`, `GarantieVol`, etc. are matched without fragile string
+  comparisons), and slots cover amounts, locations, persons, declaration
+  status and dates.
+- Coverage includes the **garantie** module (generic + incendie, vol, dégât
+  des eaux, bris de glace, catastrophe naturelle, responsabilité civile,
+  clauses) and the **sinistre** module (generic + incendie, vol, dégât des
+  eaux, bris de glace, catastrophe naturelle), plus declarations, documents,
+  dommages and indemnisations.
 
 Endpoint: `POST /api/ontology/nlp/ask` with body `{"question": "..."}`.
 Available intents: `GET /api/ontology/nlp/intents`.
