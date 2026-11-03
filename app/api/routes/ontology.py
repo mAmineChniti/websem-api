@@ -270,7 +270,7 @@ def get_sparql_examples():
 def ask_nlp(req: NLPQuestionRequest):
     """
     Traduit une question en langage naturel français en requête SPARQL.
-    Pipeline : NLTK tokenisation → spaCy NER → Intent matching → SPARQL
+    Pipeline : NLTK tokenisation → spaCy NER → Intent matching → Slots/FILTER → SPARQL
     """
     try:
         return nlp_translator.translate_to_sparql(req.question)
@@ -288,6 +288,7 @@ def get_nlp_intents():
             "Étape 1 — NLTK : word_tokenize (fr) + stopwords français + SnowballStemmer",
             "Étape 2 — spaCy fr_core_news_sm : NER (entités nommées) + POS tagging",
             "Étape 3 — Intent Matcher : score sur mots-clés et stems → SPARQL ciblé",
+            "Étape 4 — Slots : spaCy NER + regex → filtres SPARQL (montant, lieu, personne, date, statut)",
         ],
         "libraries": ["NLTK 3.x", "spaCy 3.x (fr_core_news_sm)", "rdflib 7.x"],
     }
