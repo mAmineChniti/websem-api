@@ -1,76 +1,75 @@
 # websem-api
 
-FastAPI backend boilerplate for the **Web Semantique** mini-project.
+FastAPI backend for the **Web Semantique** mini-project: an insurance
+ontology (assurance habitation / gestion des sinistres) exposed through a
+REST API, with a rule-based NLP-to-SPARQL translator.
 
-## Requirements
+The front-end is a separate project; this repository contains the backend
+and the ontology only.
 
-- Python 3.11+
-- [uv](https://docs.astral.sh/uv/)
+## Ontology
 
-## Getting started
+- Theme: home-insurance claims management.
+- File: `assurance.rdf` (OWL/RDF XML, Protégé-compatible).
+- Namespace classes: `http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#`
+- Properties/individuals: `http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#`
+- 47 named classes plus 2 anonymous OWL class expressions, 13 object properties,
+  25 data properties, 20 named individuals,
+  plus disjoint/equivalent-class and restriction axioms.
 
-### With uv
+## NLP / TALN module
+
+`app/services/nlp_sparql.py` translates a French natural-language question
+into an executable SPARQL query without any LLM API (no Gemini/OpenAI/etc.).
+It uses:
+
+- **NLTK** (`nltk.tokenize.word_tokenize`, `nltk.corpus.stopwords`,
+  `nltk.stem.snowball.SnowballStemmer`) for tokenisation, stop-word removal
+  and French stemming.
+- **spaCy** (`fr_core_news_sm`) for POS tagging and named-entity recognition
+  (persons, locations, amounts, dates).
+- **rdflib** for parsing the ontology and executing the generated SPARQL.
+- An in-house intent matcher (keyword + stem scoring) that selects one of
+  33 predefined SPARQL templates and injects detected slots as `FILTER`s.
+  Class filters are grounded in the ontology with `rdfs:subClassOf*` (so
+  `SinistreIncendie`, `GarantieVol`, etc. are matched without fragile string
+  comparisons), and slots cover amounts, locations, persons, declaration
+  status and dates.
+- Coverage includes the **garantie** module (generic + incendie, vol, dégât
+  des eaux, bris de glace, catastrophe naturelle, responsabilité civile,
+  clauses) and the **sinistre** module (generic + incendie, vol, dégât des
+  eaux, bris de glace, catastrophe naturelle), plus declarations, documents,
+  dommages and indemnisations.
+
+Endpoint: `POST /api/ontology/nlp/ask` with body `{"question": "..."}`.
+Available intents: `GET /api/ontology/nlp/intents`.
+
+## API
+
+Run with:
 
 ```bash
-cd websem-api
 cp .env.example .env
 uv sync
 uv run fastapi dev app/main.py
 ```
 
-### Without uv (pip)
+Main endpoints (prefix `/api`):
+
+- `/health`
+- `/ontology/stats`, `/ontology/classes`
+- `/ontology/properties/object`, `/ontology/properties/datatype`
+- `/ontology/personnes`, `/ontology/contrats`, `/ontology/sinistres`,
+  `/ontology/garanties`, `/ontology/documents`, `/ontology/dommages`
+- `/ontology/sparql`, `/ontology/sparql/examples`
+- `/ontology/nlp/ask`, `/ontology/nlp/intents`
+- `/ontology/search?q=...`
+
+Interactive docs: `/docs`.
+
+## Tests
 
 ```bash
-cd websem-api
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-fastapi dev app/main.py
+uv run pytest
+uv run ruff check .
 ```
-
-The API is available at:
-
-- API root: http://localhost:8000/
-- Health check: http://localhost:8000/api/health
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
-
-## Project structure
-
-```
-websem-api/
-├── app/
-│   ├── main.py            # FastAPI application factory
-│   ├── api/
-│   │   ├── router.py      # Main API router
-│   │   └── routes/        # Route modules (health, ...)
-│   └── core/
-│       └── config.py      # Settings loaded from environment
-├── tests/                 # Pytest suite
-├── .env.example
-└── pyproject.toml
-```
-
-## Development
-
-```bash
-uv run pytest        # run tests
-uv run ruff check .  # lint
-uv run ruff format . # format
-```
-
-Without uv:
-
-```bash
-pip install -r requirements-dev.txt
-pytest
-ruff check .
-ruff format .
-```
-
-## Configuration
-
-Settings are read from environment variables or a `.env` file (see `.env.example`).
-`CORS_ORIGINS` accepts a comma-separated list; the default allows the Next.js
-front-end running on `http://localhost:3000`.

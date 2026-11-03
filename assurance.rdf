@@ -241,7 +241,7 @@
     <Assuarnce_et_Gestion_des_Sinistres:dateDebut rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-01-01T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateDebut>
     <Assuarnce_et_Gestion_des_Sinistres:dateFin rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-12-31T00:00:00</Assuarnce_et_Gestion_des_Sinistres:dateFin>
     <Assuarnce_et_Gestion_des_Sinistres:montantPrime rdf:datatype="http://www.w3.org/2001/XMLSchema#float">650.0</Assuarnce_et_Gestion_des_Sinistres:montantPrime>
-    <Assuarnce_et_Gestion_des_Sinistres:aPourAssure rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#hiba khadraoui"/>
+    <Assuarnce_et_Gestion_des_Sinistres:aPourAssure rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#hiba_khadraoui"/>
     <Assuarnce_et_Gestion_des_Sinistres:montantFranchise rdf:datatype="http://www.w3.org/2001/XMLSchema#float">150.0</Assuarnce_et_Gestion_des_Sinistres:montantFranchise>
     <Assuarnce_et_Gestion_des_Sinistres:typeHabitation rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Appartement</Assuarnce_et_Gestion_des_Sinistres:typeHabitation>
     <Assuarnce_et_Gestion_des_Sinistres:garanties rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Incendie,Vol</Assuarnce_et_Gestion_des_Sinistres:garanties>
@@ -661,7 +661,7 @@
     <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
     <owl:withRestrictions rdf:nodeID="N3e3f1c82a475464e8f8ea835da5f83c3"/>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#hiba khadraoui">
+  <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#hiba_khadraoui">
     <Assuarnce_et_Gestion_des_Sinistres:souscritContrat rdf:resource="http://www.semanticweb.org/asus/ontologies/2026/8/Assuarnce_et_Gestion_des_Sinistres#Contrat5"/>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.semanticweb.org/asus/ontologies/2026/8/untitled-ontology-5#Expert">
