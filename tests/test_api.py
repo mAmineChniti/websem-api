@@ -1,6 +1,8 @@
 from fastapi.testclient import TestClient
+from rdflib import Graph
 
 from app.main import app
+from app.services.ontology_service import ontology_service
 
 client = TestClient(app)
 
@@ -169,3 +171,43 @@ def test_sparql_examples_execute():
     for example in examples:
         response = client.post("/api/ontology/sparql", json={"query": example["query"]})
         assert response.status_code == 200, example["id"]
+
+
+def test_habitation_endpoints(monkeypatch, tmp_path):
+    graph = Graph()
+    graph.parse("assurance.rdf", format="xml")
+    monkeypatch.setattr(ontology_service, "graph", graph)
+    monkeypatch.setattr(ontology_service, "rdf_path", str(tmp_path / "assurance.rdf"))
+
+    created = client.post(
+        "/api/ontology/habitations",
+        json={"type": "Appartement", "adresse": "Tunis", "superficie": 90, "valeurBien": 250000},
+    )
+    assert created.status_code == 200
+    habitation_id = created.json()["id"]
+
+    listed = client.get("/api/ontology/habitations")
+    assert listed.status_code == 200
+    assert any(h["habitation"] == habitation_id for h in listed.json())
+
+    detail = client.get(f"/api/ontology/habitations/{habitation_id}")
+    assert detail.status_code == 200
+    assert detail.json()["adresse"] == "Tunis"
+    assert detail.json()["valeurBien"] == "250000.0"
+
+    updated = client.put(
+        f"/api/ontology/habitations/{habitation_id}",
+        json={"type": "Villa", "adresse": "Sousse"},
+    )
+    assert updated.status_code == 200
+    assert (
+        client.get(f"/api/ontology/habitations/{habitation_id}").json()["typeHabitation"] == "Villa"
+    )
+
+    assert client.delete(f"/api/ontology/habitations/{habitation_id}").status_code == 200
+    assert client.get(f"/api/ontology/habitations/{habitation_id}").status_code == 404
+
+    assert client.post("/api/ontology/habitations", json={"type": "Chateau"}).status_code == 400
+    assert client.get("/api/ontology/habitations/invalid%20id").status_code == 400
+    assert client.get("/api/ontology/habitations/Contrat1").status_code == 404
+    assert client.delete("/api/ontology/habitations/Contrat1").status_code == 404
