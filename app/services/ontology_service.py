@@ -25,7 +25,7 @@ def _is_update_query(query: str) -> bool:
     return bool(
         re.search(
             r"\b(?:INSERT\s+DATA|INSERT\s*\{|DELETE\s+DATA|DELETE\s*\{|DELETE\s+WHERE|"
-            r"LOAD|CLEAR|CREATE|DROP|COPY|MOVE|ADD)\b",
+            r"LOAD|CLEAR|CREATE|DROP|COPY|MOVE|ADD)(?:\s|\{|$)",
             query,
             flags=re.IGNORECASE,
         )
@@ -1068,6 +1068,120 @@ class OntologyService:
             return False
         for t in triples:
             self.graph.remove(t)
+        self.save_graph()
+        return True
+
+    # ── Module HIBA : HABITATIONS ────────────────────────────────────────────
+    _HABITATION_TYPES = {"Maison", "Appartement", "Studio", "Villa", "habitation"}
+
+    def add_habitation(self, data: dict[str, Any]) -> dict[str, Any]:
+        """Ajoute une habitation à l'ontologie."""
+        h_id = data.get("id") or f"Habitation_{len(self.get_all_habitations()) + 1}"
+        _validate_identifier(h_id)
+        h_uri = AS[h_id]
+        type_name = data.get("type") or data.get("typeHabitation") or "Appartement"
+        if type_name not in self._HABITATION_TYPES:
+            type_name = "Appartement"
+        type_uri = UNT[type_name] if type_name != "habitation" else UNT.habitation
+
+        self.graph.add((h_uri, RDF.type, OWL.NamedIndividual))
+        self.graph.add((h_uri, RDF.type, type_uri))
+
+        adresse = data.get("adresse") if data.get("adresse") is not None else data.get("adresseBien")
+        superficie = data.get("superficie")
+        valeur = data.get("valeurBien") if data.get("valeurBien") is not None else data.get("valeur")
+
+        if adresse is not None and str(adresse).strip():
+            self.graph.add((h_uri, AS.adresseBien, Literal(str(adresse).strip(), datatype=XSD.string)))
+        if superficie is not None:
+            self.graph.add((h_uri, AS.superficie, Literal(float(superficie), datatype=XSD.float)))
+        if valeur is not None:
+            self.graph.add((h_uri, AS.valeurBien, Literal(float(valeur), datatype=XSD.float)))
+
+        self.save_graph()
+        return {"id": h_id, "type": type_name, "message": "Habitation créée avec succès"}
+
+    def get_all_habitations(self) -> list[dict[str, Any]]:
+        """Retourne toutes les habitations."""
+        query = """
+        SELECT DISTINCT ?habitation ?typeHabitation ?adresse ?superficie ?valeur WHERE {
+            ?habitation a owl:NamedIndividual ; a ?typeHabitation .
+            ?typeHabitation rdfs:subClassOf* unt:habitation .
+            OPTIONAL { ?habitation as:adresseBien ?adresse }
+            OPTIONAL { ?habitation as:superficie ?superficie }
+            OPTIONAL { ?habitation as:valeurBien ?valeur }
+        }
+        ORDER BY ?habitation
+        """
+        return self.execute_sparql(query)["results"]
+
+    def get_habitation(self, ontology_id: str) -> dict[str, Any]:
+        _validate_identifier(ontology_id)
+        h_uri = AS[ontology_id]
+        if (h_uri, RDF.type, OWL.NamedIndividual) not in self.graph:
+            return {}
+
+        type_uri = next(
+            (
+                t
+                for t in self.graph.objects(h_uri, RDF.type)
+                if t != OWL.NamedIndividual and str(t).startswith(str(UNT))
+            ),
+            UNT.Appartement,
+        )
+        adresse = self.graph.value(h_uri, AS.adresseBien)
+        superficie = self.graph.value(h_uri, AS.superficie)
+        valeur = self.graph.value(h_uri, AS.valeurBien)
+        return {
+            "habitation": ontology_id,
+            "typeHabitation": str(type_uri).split("#")[-1],
+            "adresse": str(adresse) if adresse is not None else None,
+            "superficie": str(superficie) if superficie is not None else None,
+            "valeur": str(valeur) if valeur is not None else None,
+        }
+
+    def update_habitation(self, habitation_id: str, data: dict[str, Any]) -> bool:
+        _validate_identifier(habitation_id)
+        h_uri = AS[habitation_id]
+        if (h_uri, RDF.type, OWL.NamedIndividual) not in self.graph:
+            return False
+
+        type_name = data.get("type") or data.get("typeHabitation")
+        if type_name:
+            if type_name not in self._HABITATION_TYPES:
+                type_name = "Appartement"
+            type_uri = UNT[type_name] if type_name != "habitation" else UNT.habitation
+            for old_type in list(self.graph.objects(h_uri, RDF.type)):
+                if old_type != OWL.NamedIndividual:
+                    self.graph.remove((h_uri, RDF.type, old_type))
+            self.graph.add((h_uri, RDF.type, type_uri))
+
+        if "adresse" in data or "adresseBien" in data:
+            adresse = data.get("adresse", data.get("adresseBien"))
+            self.graph.remove((h_uri, AS.adresseBien, None))
+            if adresse is not None and str(adresse).strip():
+                self.graph.add((h_uri, AS.adresseBien, Literal(str(adresse).strip(), datatype=XSD.string)))
+        if data.get("superficie") is not None:
+            self.graph.remove((h_uri, AS.superficie, None))
+            self.graph.add((h_uri, AS.superficie, Literal(float(data["superficie"]), datatype=XSD.float)))
+        valeur = data.get("valeurBien") if data.get("valeurBien") is not None else data.get("valeur")
+        if valeur is not None:
+            self.graph.remove((h_uri, AS.valeurBien, None))
+            self.graph.add((h_uri, AS.valeurBien, Literal(float(valeur), datatype=XSD.float)))
+
+        self.save_graph()
+        return True
+
+    def delete_habitation(self, ontology_id: str) -> bool:
+        _validate_identifier(ontology_id)
+        h_uri = AS[ontology_id]
+        triples = set(self.graph.triples((h_uri, None, None))) | set(
+            self.graph.triples((None, None, h_uri))
+        )
+        if not triples:
+            return False
+        for triple in triples:
+            self.graph.remove(triple)
         self.save_graph()
         return True
 

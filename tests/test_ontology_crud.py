@@ -54,6 +54,27 @@ def test_contrat_crud():
         os.unlink(path)
 
 
+def test_habitation_crud():
+    svc, path = _service_copy()
+    try:
+        hid = svc.add_habitation(
+            {
+                "type": "Appartement",
+                "adresse": "bardo",
+                "superficie": 12000,
+                "valeurBien": 125000,
+            }
+        )["id"]
+        habitation = svc.get_habitation(hid)
+        assert habitation["adresse"] == "bardo"
+        assert habitation["superficie"] == "12000.0"
+        assert svc.update_habitation(hid, {"adresse": "Tunis", "valeurBien": 150000}) is True
+        assert svc.get_habitation(hid)["adresse"] == "Tunis"
+        assert svc.delete_habitation(hid) is True
+    finally:
+        os.unlink(path)
+
+
 def test_sinistre_document_dommage_garantie_crud():
     svc, path = _service_copy()
     try:

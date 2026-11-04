@@ -85,6 +85,20 @@ class NLPQuestionRequest(BaseModel):
     question: str
 
 
+class HabitationCreateRequest(BaseModel):
+    type: str = "Appartement"
+    adresse: str = ""
+    superficie: float | None = None
+    valeurBien: float | None = None
+
+
+class HabitationUpdateRequest(BaseModel):
+    type: str | None = None
+    adresse: str | None = None
+    superficie: float | None = None
+    valeurBien: float | None = None
+
+
 # ── 0. RECHARGEMENT ONTOLOGIE (après modification Protégé) ─────────────────────
 @router.post("/reload")
 def reload_ontology():
@@ -234,6 +248,48 @@ def delete_contrat(contrat_id: str):
     return {"status": "success", "message": f"Contrat {contrat_id} supprimé de l'ontologie"}
 
 
+# ── 3b. MODULE HIBA : HABITATIONS ─────────────────────────────────────────
+@router.post("/habitations")
+def create_habitation(req: HabitationCreateRequest):
+    try:
+        return ontology_service.add_habitation(req.model_dump())
+    except (TypeError, ValueError) as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+
+@router.get("/habitations")
+def list_habitations():
+    return ontology_service.get_all_habitations()
+
+
+@router.get("/habitations/{habitation_id}")
+def get_habitation(habitation_id: str):
+    result = ontology_service.get_habitation(habitation_id)
+    if not result:
+        raise HTTPException(status_code=404, detail="Habitation non trouvée dans l'ontologie")
+    return result
+
+
+@router.put("/habitations/{habitation_id}")
+def update_habitation(habitation_id: str, req: HabitationUpdateRequest):
+    try:
+        success = ontology_service.update_habitation(
+            habitation_id, req.model_dump(exclude_none=True)
+        )
+        if not success:
+            raise HTTPException(status_code=404, detail="Habitation non trouvée dans l'ontologie")
+        return {"status": "success", "message": "Habitation mise à jour avec succès"}
+    except HTTPException:
+        raise
+    except (TypeError, ValueError) as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+
+
+@router.delete("/habitations/{habitation_id}")
+def delete_habitation(habitation_id: str):
+    if not ontology_service.delete_habitation(habitation_id):
+        raise HTTPException(status_code=404, detail="Habitation non trouvée dans l'ontologie")
+    return {"status": "success", "message": "Habitation supprimée de l'ontologie"}
 # ── 4. STATS ──────────────────────────────────────────────────────────────────
 @router.get("/stats")
 def get_stats():
