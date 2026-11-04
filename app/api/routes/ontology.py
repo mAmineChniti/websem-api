@@ -264,7 +264,10 @@ def list_habitations():
 
 @router.get("/habitations/{habitation_id}")
 def get_habitation(habitation_id: str):
-    result = ontology_service.get_habitation(habitation_id)
+    try:
+        result = ontology_service.get_habitation(habitation_id)
+    except (TypeError, ValueError) as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
     if not result:
         raise HTTPException(status_code=404, detail="Habitation non trouvée dans l'ontologie")
     return result
@@ -287,9 +290,15 @@ def update_habitation(habitation_id: str, req: HabitationUpdateRequest):
 
 @router.delete("/habitations/{habitation_id}")
 def delete_habitation(habitation_id: str):
-    if not ontology_service.delete_habitation(habitation_id):
+    try:
+        deleted = ontology_service.delete_habitation(habitation_id)
+    except (TypeError, ValueError) as e:
+        raise HTTPException(status_code=400, detail=str(e)) from e
+    if not deleted:
         raise HTTPException(status_code=404, detail="Habitation non trouvée dans l'ontologie")
     return {"status": "success", "message": "Habitation supprimée de l'ontologie"}
+
+
 # ── 4. STATS ──────────────────────────────────────────────────────────────────
 @router.get("/stats")
 def get_stats():

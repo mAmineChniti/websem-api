@@ -2,9 +2,10 @@ import os
 import shutil
 import tempfile
 
+import pytest
 from rdflib import RDF
 
-from app.services.ontology_service import AS, UNT, OntologyService
+from app.services.ontology_service import AS, UNT, OntologyService, _is_update_query
 
 
 def _service_copy():
@@ -68,11 +69,45 @@ def test_habitation_crud():
         habitation = svc.get_habitation(hid)
         assert habitation["adresse"] == "bardo"
         assert habitation["superficie"] == "12000.0"
+        assert habitation["valeurBien"] == "125000.0"
+        listed = next(h for h in svc.get_all_habitations() if h["habitation"] == hid)
+        assert listed["valeurBien"] == "125000.0"
         assert svc.update_habitation(hid, {"adresse": "Tunis", "valeurBien": 150000}) is True
         assert svc.get_habitation(hid)["adresse"] == "Tunis"
+        assert svc.update_habitation(hid, {"type": "Villa"}) is True
+        assert svc.get_habitation(hid)["typeHabitation"] == "Villa"
         assert svc.delete_habitation(hid) is True
+        assert svc.get_habitation(hid) == {}
     finally:
         os.unlink(path)
+
+
+def test_habitation_rejects_invalid_type_and_non_habitation_ids():
+    svc, path = _service_copy()
+    try:
+        with pytest.raises(ValueError):
+            svc.add_habitation({"type": "Chateau"})
+        with pytest.raises(ValueError):
+            svc.update_habitation("Maison1", {"type": "Chateau"})
+
+        # Une personne, un contrat ou une classe ne doit pas être traité comme une habitation.
+        assert svc.get_habitation("Contrat1") == {}
+        assert svc.update_habitation("Contrat1", {"adresse": "Tunis"}) is False
+        assert svc.delete_habitation("Contrat1") is False
+        assert (AS.Contrat1, RDF.type, UNT.ContratProprietaire) in svc.graph
+    finally:
+        os.unlink(path)
+
+
+def test_sparql_update_detection_ignores_iri_fragments():
+    assert _is_update_query("SELECT * WHERE { ?s ?p <http://example.org/CREATE#x> }") is False
+    assert _is_update_query("SELECT * WHERE { ?s ?p ?o }") is False
+    assert _is_update_query("INSERT DATA { <http://x/y> <http://x/p> 'v' }") is True
+    assert _is_update_query("INSERT DATA{<http://x/y> <http://x/p> 'v'}") is True
+    assert _is_update_query("INSERT{?s ?p ?o}") is True
+    assert _is_update_query("DELETE{?s ?p ?o}") is True
+    assert _is_update_query("DELETE WHERE { ?s ?p ?o }") is True
+    assert _is_update_query("LOAD <http://example.org/data.rdf>") is True
 
 
 def test_sinistre_document_dommage_garantie_crud():

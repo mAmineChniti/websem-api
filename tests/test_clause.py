@@ -3,11 +3,20 @@ Tests unitaires pour le module Clauses (Montaha Trabelsi).
 Vérifie le CRUD complet, le cas ClauseFranchise et la gestion des erreurs HTTP (400, 404).
 """
 
+import pytest
 from fastapi.testclient import TestClient
+from rdflib import Graph
 
 from app.main import app
+from app.services.ontology_service import ontology_service
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def isolated_ontology_graph(monkeypatch, tmp_path):
+    monkeypatch.setattr(ontology_service, "graph", Graph())
+    monkeypatch.setattr(ontology_service, "rdf_path", str(tmp_path / "assurance.rdf"))
 
 
 def test_get_clauses_list():
