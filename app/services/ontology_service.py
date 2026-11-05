@@ -778,9 +778,13 @@ class OntologyService:
             )
             status_types = {
                 "acceptee": UNT.DeclarationAcceptee,
+                "accepte": UNT.DeclarationAcceptee,
                 "rejetee": UNT.DeclarationRejetee,
+                "rejete": UNT.DeclarationRejetee,
                 "en cours": UNT.DeclarationEnCours,
                 "encours": UNT.DeclarationEnCours,
+                "declara": UNT.DeclarationEnCours,
+                "declare": UNT.DeclarationEnCours,
             }
             normalized_status = statut.strip().casefold().replace("é", "e").replace("è", "e")
             for status_type in (
@@ -1249,14 +1253,25 @@ class OntologyService:
                 )
             self.graph.add((declaration, AS.estJustifiePar, document_uri))
 
+    def _next_document_id(self) -> str:
+        index = len(self.get_all_documents()) + 1
+        while any(self.graph.triples((AS[f"Document_{index}"], None, None))):
+            index += 1
+        return f"Document_{index}"
+
     def add_document(self, data: dict[str, Any]) -> dict[str, Any]:
         """Ajoute un document à l'ontologie."""
-        d_id = data.get("id") or f"Document_{len(self.get_all_documents()) + 1}"
+        d_id = data.get("id") or self._next_document_id()
         _validate_identifier(d_id)
         d_uri = AS[d_id]
         type_name = data.get("type") or data.get("typeDocument") or "RapportExpertise"
         if type_name not in self._DOCUMENT_TYPES:
-            type_name = "RapportExpertise"
+            raise ValueError(f"Type de document invalide : {type_name}")
+        sinistre_id = data.get("associeSinistre")
+        if sinistre_id:
+            _validate_identifier(sinistre_id)
+            if (AS[sinistre_id], RDF.type, OWL.NamedIndividual) not in self.graph:
+                raise ValueError(f"Sinistre {sinistre_id} introuvable")
         type_uri = UNT[type_name]
 
         self.graph.add((d_uri, RDF.type, OWL.NamedIndividual))
@@ -1322,16 +1337,15 @@ class OntologyService:
         exists = (d_uri, RDF.type, OWL.NamedIndividual) in self.graph
         if not exists:
             return False
+        sinistre_id = data.get("associeSinistre")
+        if sinistre_id:
+            _validate_identifier(sinistre_id)
+            if (AS[sinistre_id], RDF.type, OWL.NamedIndividual) not in self.graph:
+                raise ValueError(f"Sinistre {sinistre_id} introuvable")
 
         type_name = data.get("type") or data.get("typeDocument")
-        if type_name:
-            if type_name not in self._DOCUMENT_TYPES:
-                type_name = "RapportExpertise"
-            type_uri = UNT[type_name]
-            for old_type in list(self.graph.objects(d_uri, RDF.type)):
-                if old_type != OWL.NamedIndividual:
-                    self.graph.remove((d_uri, RDF.type, old_type))
-            self.graph.add((d_uri, RDF.type, type_uri))
+        if type_name not in self._DOCUMENT_TYPES:
+                raise ValueError(f"Type de document invalide : {type_name}")
         if data.get("nomFichier"):
             self.graph.remove((d_uri, AS.nomFichier, None))
             self.graph.add((d_uri, AS.nomFichier, Literal(data["nomFichier"], datatype=XSD.string)))

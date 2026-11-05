@@ -274,7 +274,7 @@ def _build_filters(intent: dict[str, Any], slots: dict[str, Any]) -> list[str]:
     status = slots.get("status")
     if status:
         status_candidates: list[str] = []
-        if intent_id.startswith(("LIST_SINISTRES", "LIST_DECLARATIONS")):
+        if intent_id.startswith(("LIST_SINISTRES", "LIST_DECLARATIONS", "COUNT_DECLARATIONS")):
             status_candidates = ["statut"]
         needle = {
             "DeclarationAcceptee": "accept",
@@ -490,6 +490,39 @@ SELECT DISTINCT ?beneficiaire ?nom ?prenom ?telephone WHERE {
     OPTIONAL { ?beneficiaire as:telephone ?telephone }
 }
 ORDER BY ?nom""",
+    },
+    {
+        "id": "COUNT_DOCUMENTS",
+        "priority": 35,
+        "keywords": ["combien", "nombre", "total", "count"],
+        "stems": ["combi", "nombr", "total"],
+        "required_keywords": ["document", "fichier", "rapport", "facture", "photo"],
+        "description": "Compte le nombre de documents par type",
+        "sparql": """\
+SELECT ?typeDocument (COUNT(DISTINCT ?document) AS ?nb) WHERE {
+    ?document a owl:NamedIndividual ;
+              a ?typeDocument .
+    ?typeDocument rdfs:subClassOf* unt:Document .
+}
+GROUP BY ?typeDocument
+ORDER BY DESC(?nb)""",
+    },
+    {
+        "id": "COUNT_DECLARATIONS",
+        "priority": 35,
+        "keywords": ["combien", "nombre", "total", "count"],
+        "stems": ["combi", "nombr", "total"],
+        "required_keywords": ["declaration", "signalement"],
+        "description": "Compte les declarations par statut",
+        "sparql": """\
+SELECT ?statut (COUNT(DISTINCT ?declaration) AS ?nb) WHERE {
+    ?declaration a owl:NamedIndividual ;
+                 a ?typeDeclaration .
+    ?typeDeclaration rdfs:subClassOf* unt:Declaration .
+    OPTIONAL { ?declaration as:statutDeclaration ?statut }
+}
+GROUP BY ?statut
+ORDER BY DESC(?nb)""",
     },
     {
         "id": "COUNT_PERSONNES",
@@ -1298,6 +1331,13 @@ class NLPSPARQLTranslator:
                     ):
                         score += 40
                         break
+
+            # Si l'intent a des required_keywords, au moins un doit etre present
+            required_kws = intent.get("required_keywords", [])
+            if required_kws and not any(
+                tok.startswith(_fold(rk)) for rk in required_kws for tok in token_set
+            ):
+                continue
 
             score += int(intent.get("priority", 0))
             max_kw_len = max((len(kw) for kw in matched_kw), default=0)

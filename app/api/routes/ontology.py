@@ -519,12 +519,27 @@ def delete_garantie(ontology_id: str):
         raise HTTPException(status_code=400, detail=str(e)) from e
 
 
+class DocumentCreateRequest(BaseModel):
+    id: str | None = None
+    type: str = "RapportExpertise"
+    nomFichier: str | None = None
+    dateUpload: str | None = None
+    associeSinistre: str | None = None
+
+
+class DocumentUpdateRequest(BaseModel):
+    type: str | None = None
+    nomFichier: str | None = None
+    dateUpload: str | None = None
+    associeSinistre: str | None = None
+
+
 # Document routes
 @router.post("/documents")
-def create_document(req: dict):
+def create_document(req: DocumentCreateRequest):
     """Ajoute un document à l'ontologie."""
     try:
-        res = ontology_service.add_document(req)
+        res = ontology_service.add_document(req.model_dump(exclude_unset=True))
         return res
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
@@ -546,10 +561,10 @@ def read_document(ontology_id: str):
 
 
 @router.put("/documents/{ontology_id}")
-def update_document(ontology_id: str, req: dict):
+def update_document(ontology_id: str, req: DocumentUpdateRequest):
     """Met à jour un document."""
     try:
-        updates = {k: v for k, v in req.items() if v is not None}
+        updates = {k: v for k, v in req.model_dump().items() if v is not None}
         res = ontology_service.update_document(ontology_id, updates)
         return res
     except Exception as e:
